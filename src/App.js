@@ -1,7 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import Request from "./helper/request";
+import { Button } from '@mui/material';
 
 function App() {
+
+  const handleClick = async () => {
+    const resp = await Request("post", "/login", {username: "sa", password: "sa"})
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +23,7 @@ function App() {
         >
           Learn React
         </a>
+        <Button onClick={handleClick}>Text</Button>
       </header>
     </div>
   );
