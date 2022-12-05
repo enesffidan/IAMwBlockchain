@@ -1,11 +1,6 @@
 import axios from "axios";
 
-// export const url = "https://admisg.eu-west-1.elasticbeanstalk.com"; //AMAZON DEV
-// export const fileUrl =
-//   "https://adm-field-inspection.s3-eu-west-1.amazonaws.com/";
-
-export const url = "http://localhost:5000"; //LINUX TEST
-export const fileUrl = "https://isgapi.gdzelektrik.com.tr:8443/open-file/";
+export const url = "http://127.0.0.1:80"; //TEST
 
 /**
  * Manages the requests made to the REST api.
