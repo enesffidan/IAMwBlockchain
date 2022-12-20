@@ -1,15 +1,15 @@
 import React from 'react';
 import RenderMenuItem from './RenderMenuItem';
 import { Collapse } from '@mui/material';
-import { styled } from '@mui/system';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = styled((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   listItemIcon: {
     color: "#ffffff"
   },
@@ -24,7 +24,7 @@ const useStyles = styled((theme) => ({
  * @param {open: boolean, drawerList: obj[], darkMode: boolean, setDarkMode: func, setLanguage: func, theme: obj, handleDrawerClose: func} param properties of the drawer component 
  */
 export default function RenderDropdownMenuItem({ value, index, outer }) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const [state, setState] = React.useState(false);
 

@@ -1,25 +1,26 @@
 import React from 'react';
-import { IconButton } from '@mui/material';
-import { styled } from '@mui/system';
+// import { IconButton } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // import Settings from '../../Buttons/Settings';
 import MenuItems from './MenuItems';
+import { makeStyles } from 'tss-react/mui';
+
 
 const drawerWidth = 300;
 
-const useStyles = styled((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   drawer: {
     width: drawerWidth,
     maxWidth: drawerWidth + 20,
     flexShrink: 0,
   },
   drawerPaper: {
-    color: '#ffffff',
-    backgroundColor: '#2D3446',
+    color: '#000000',
+    backgroundColor: '#FAF9FF',
     width: drawerWidth,
     maxWidth: drawerWidth + 20
   },
@@ -51,14 +52,14 @@ const useStyles = styled((theme) => ({
  * @param {open: boolean, drawerList: obj[], darkMode: boolean, setDarkMode: func, setLanguage: func, theme: obj, handleDrawerClose: func} param properties of the drawer component 
  */
 export default function NavDrawer({ open, drawerList, darkMode, setDarkMode, setLanguage, theme, handleDrawerClose }) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Drawer
       className={classes.drawer}
       variant="persistent"
       anchor="left"
-      open={open}
+      open={true}
       classes={{
         paper: classes.drawerPaper,
       }}
@@ -67,9 +68,9 @@ export default function NavDrawer({ open, drawerList, darkMode, setDarkMode, set
         {/* <IconButton onClick={() => window.open("help")}>
           <HelpOutlineIcon className={classes.helpIcon}/>
         </IconButton> */}
-        <IconButton onClick={handleDrawerClose}>
+        {/* <IconButton onClick={handleDrawerClose} size="large">
           {theme.direction === 'ltr' ? <ChevronLeftIcon className={classes.drawerButtonIcon} /> : <ChevronRightIcon />}
-        </IconButton>
+        </IconButton> */}
       </div>
       <Divider />
       <List>
@@ -80,5 +81,5 @@ export default function NavDrawer({ open, drawerList, darkMode, setDarkMode, set
         <Settings darkMode={darkMode} setDarkMode={setDarkMode} setLanguage={setLanguage} />
       </div> */}
     </Drawer>
-  )
+  );
 }

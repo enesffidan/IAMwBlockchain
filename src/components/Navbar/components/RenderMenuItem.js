@@ -1,15 +1,16 @@
 import React from 'react';
-import { styled } from '@mui/system';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListIcon from '@mui/icons-material/List';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from 'tss-react/mui';
 
-const useStyles = styled((theme) => ({
+
+const useStyles = makeStyles()((theme) => ({
   listItemIcon: {
-    color: "#ffffff"
+    color: "#000000"
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -22,7 +23,7 @@ const useStyles = styled((theme) => ({
  * @param {open: boolean, drawerList: obj[], darkMode: boolean, setDarkMode: func, setLanguage: func, theme: obj, handleDrawerClose: func} param properties of the drawer component 
  */
 export default function RenderMenuItem({ value, index, outer }) {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const history = useHistory();
 
   const onClick = () => {
