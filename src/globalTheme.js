@@ -3,7 +3,7 @@ import { colors, createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#46AD8D",
+      main: "#528CFC",
       contrastText: "#000", //button text black instead of white
     },
     secondary: {
@@ -11,6 +11,17 @@ const theme = createTheme({
     },
     background: {
       default: "#E3F3FA",
+    },
+  },
+  components: {
+    // Name of the component
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+        },
+      },
     },
   },
 });
