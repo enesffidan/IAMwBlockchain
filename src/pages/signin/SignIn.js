@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useHistory } from "react-router-dom";
 import LanguageHelper from "../../helpers/LanguageHelper";
 // import SessionHelper from "../../helpers/SessionHelper";
-// import Request from "../../helpers/Request";
+import Request from "../../helpers/Request";
 // import CustomSnackbar from "../../components/Snackbar/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
@@ -58,11 +58,11 @@ export default function SignIn({ update, setUpdate }) {
 
   async function handleLogin(username, password) {
     setLoading(true);
-    // const resp = await Request("post", "/api/auth/signin", {
-    //   username: username,
-    //   password: password,
-    // });
-    // console.log(resp);
+    const resp = await Request("post", "/login", {
+      username: username,
+      password: password,
+    });
+    console.log(resp);
     // if (resp?.status === 200) {
     //   let data = resp.data.content;
     //   if (data.isLoggedIn == true) {
