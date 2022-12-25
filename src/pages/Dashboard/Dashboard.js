@@ -4,6 +4,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import logo from "../../assets/Facebook_Logo_(2019).png";
+import { CardMedia } from "@mui/material";
+import Request from "../../helpers/Request";
+import { CardActionArea } from "@mui/material";
 
 const useStyles = makeStyles()((theme) => ({
   gridContainer: {
@@ -18,20 +22,34 @@ const useStyles = makeStyles()((theme) => ({
 export default function Dashboard() {
   const { classes } = useStyles();
 
+  async function handleOnClick() {
+    const resp = await Request("get", "/appInstance", null);
+    console.log(resp);
+  }
+
   return (
     <Grid
       container
-      spacing={4}
+      spacing={6}
       className={classes.gridContainer}
       justify="center"
     >
       <Grid item xs={12} sm={6} md={4}>
         <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-          </CardContent>
+          <CardActionArea onClick={handleOnClick}>
+            <CardMedia
+              component="img"
+              height="150"
+              image={logo}
+              alt="facebook"
+              sx={{ objectFit: "contain" }}
+            />
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                Word of the Day
+              </Typography>
+            </CardContent>
+          </CardActionArea>
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
