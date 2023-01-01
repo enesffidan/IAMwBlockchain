@@ -9,7 +9,7 @@ import { makeStyles } from "tss-react/mui";
 import Container from "@mui/material/Container";
 import { useHistory } from "react-router-dom";
 import LanguageHelper from "../../helpers/LanguageHelper";
-// import SessionHelper from "../../helpers/SessionHelper";
+import SessionHelper from "../../helpers/SessionHelper";
 import Request from "../../helpers/Request";
 // import CustomSnackbar from "../../components/Snackbar/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -63,48 +63,49 @@ export default function SignIn({ update, setUpdate }) {
       password: password,
     });
     console.log(resp);
-    // if (resp?.status === 200) {
-    //   let data = resp.data.content;
-    //   if (data.isLoggedIn == true) {
-    //     SessionHelper.setUser(data.jwt);
-    //     setUpdate(!update);
-    //     if (!regexRules.test(password)) {
-    //       history?.location?.state
-    //         ? history.push(history?.location?.state?.from?.pathname)
-    //         : history.push("/dashboard", { error: true });
-    //     } else {
-    //       history?.location?.state
-    //         ? history.push(history?.location?.state?.from?.pathname)
-    //         : history.push("/dashboard");
-    //     }
-    //   } else {
-    //     console.log(data.key);
-    //     history.push("/verification", {
-    //       password: password,
-    //       username: username,
-    //       key: data.key,
-    //       message: resp.data.messageResponse.message,
-    //     });
-    //   }
-    // } else {
-    //   if (resp?.status === 429) {
-    //     setSeverity("error");
-    //     setSnackbarMessage(
-    //       "Çok fazla istekte bulundunuz. Lütfen daha sonra tekrar deneyiniz."
-    //     );
-    //     setSnackbar(true);
-    //   } else {
-    //     if (resp?.data && resp?.data.messageResponse) {
-    //       setSeverity("error");
-    //       setSnackbarMessage(resp.data.messageResponse.message);
-    //       setSnackbar(true);
-    //     } else {
-    //       setSeverity("error");
-    //       setSnackbarMessage(language.login.unexpectedError);
-    //       setSnackbar(true);
-    //     }
-    //   }
-    // }
+    if (resp?.data?.login_status === 200) {
+      SessionHelper.setUser({
+        username: username,
+        password: password,
+      });
+      setUpdate(!update);
+      //     if (!regexRules.test(password)) {
+      //       history?.location?.state
+      //         ? history.push(history?.location?.state?.from?.pathname)
+      //         : history.push("/dashboard", { error: true });
+      //     } else {
+      //       history?.location?.state
+      //         ? history.push(history?.location?.state?.from?.pathname)
+      //         : history.push("/dashboard");
+      //     }
+      //   } else {
+      //     console.log(data.key);
+      //     history.push("/verification", {
+      //       password: password,
+      //       username: username,
+      //       key: data.key,
+      //       message: resp.data.messageResponse.message,
+      //     });
+      //   }
+      // } else {
+      //   if (resp?.status === 429) {
+      //     setSeverity("error");
+      //     setSnackbarMessage(
+      //       "Çok fazla istekte bulundunuz. Lütfen daha sonra tekrar deneyiniz."
+      //     );
+      //     setSnackbar(true);
+      //   } else {
+      //     if (resp?.data && resp?.data.messageResponse) {
+      //       setSeverity("error");
+      //       setSnackbarMessage(resp.data.messageResponse.message);
+      //       setSnackbar(true);
+      //     } else {
+      //       setSeverity("error");
+      //       setSnackbarMessage(language.login.unexpectedError);
+      //       setSnackbar(true);
+      //     }
+      //   }
+    }
     setLoading(false);
   }
 

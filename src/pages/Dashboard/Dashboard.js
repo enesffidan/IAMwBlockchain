@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import logo from "../../assets/Facebook_Logo_(2019).png";
+import logo from "../../assets/GitHub-Mark.png";
 import { CardMedia } from "@mui/material";
 import Request from "../../helpers/Request";
 import { CardActionArea } from "@mui/material";
@@ -41,51 +41,15 @@ export default function Dashboard() {
               component="img"
               height="150"
               image={logo}
-              alt="facebook"
+              alt="github"
               sx={{ objectFit: "contain" }}
             />
             <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                Word of the Day
+              <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
+                Github
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              Word of the Day
-            </Typography>
-          </CardContent>
         </Card>
       </Grid>
     </Grid>
