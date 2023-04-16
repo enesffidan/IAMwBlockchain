@@ -58,16 +58,17 @@ export default function SignIn({ update, setUpdate }) {
 
   async function handleLogin(username, password) {
     setLoading(true);
-    const resp = await Request("post", "/login", {
-      username: username,
-      password: password,
-    });
-    console.log(resp);
-    if (resp?.data?.login_status === 200) {
+    // const resp = await Request("post", "/login", {
+    //   username: username,
+    //   password: password,
+    // });
+    // console.log(resp);
+    // if (resp?.data?.login_status === true) {
       SessionHelper.setUser({
-        username: username,
-        password: password,
+        firstName: 'Onur',
+        lastName: 'Cihangir',
       });
+      SessionHelper.getUser();
       setUpdate(!update);
       //     if (!regexRules.test(password)) {
       //       history?.location?.state
@@ -76,7 +77,7 @@ export default function SignIn({ update, setUpdate }) {
       //     } else {
       //       history?.location?.state
       //         ? history.push(history?.location?.state?.from?.pathname)
-      //         : history.push("/dashboard");
+      history.push("/dashboard");
       //     }
       //   } else {
       //     console.log(data.key);
@@ -105,7 +106,7 @@ export default function SignIn({ update, setUpdate }) {
       //       setSnackbar(true);
       //     }
       //   }
-    }
+    // }
     setLoading(false);
   }
 

@@ -15,6 +15,7 @@ import SignIn from "./pages/signin/SignIn";
 // import Forgot from "./pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import { LandingPage } from "./pages/landingPage";
+import AddAppsPage from "./pages/userApps/AddAppsPage";
 
 const auth = [
   {
@@ -48,6 +49,10 @@ const publicRoutes = [
   {
     path: "/dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/add-apps",
+    component: AddAppsPage,
   },
 ];
 
@@ -85,6 +90,7 @@ export default function Routes() {
       let drawerList = [
         // DASHBOARD
         { label: language.sidebar.dashboard, Path: "/dashboard" },
+        { label: 'Add Apps', Path: "/add-apps" },
       ];
       setDrawerList(drawerList);
     }

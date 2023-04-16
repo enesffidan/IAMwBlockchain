@@ -8,6 +8,7 @@ import logo from "../../assets/GitHub-Mark.png";
 import { CardMedia } from "@mui/material";
 import Request from "../../helpers/Request";
 import { CardActionArea } from "@mui/material";
+import fblogo from "../../assets/Facebook_Logo_(2019).png";
 
 const useStyles = makeStyles()((theme) => ({
   gridContainer: {
@@ -50,6 +51,22 @@ export default function Dashboard() {
               </Typography>
             </CardContent>
           </CardActionArea>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card className={classes.root} variant="outlined">
+          <CardMedia
+            component="img"
+            height="150"
+            image={fblogo}
+            alt="fb"
+            sx={{ objectFit: "contain" }}
+          />
+          <CardContent>
+            <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
+              Facebook
+            </Typography>
+          </CardContent>
         </Card>
       </Grid>
     </Grid>
