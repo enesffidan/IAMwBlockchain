@@ -1,0 +1,63 @@
+import React from "react";
+import { Tooltip, IconButton, Button } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
+import clsx from "clsx";
+
+const useStyles = makeStyles()((theme) => ({
+  addButton: {
+    fontSize: "20px",
+  },
+  labelButtonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    lineHeight: "2",
+    justifyContent: "space-between",
+    columnGap: 5,
+  },
+}));
+
+/**
+ * A labeled icon button component.
+ * @param {title: string, onClick: func, children: obj} param properties of IconTooltipButton
+ */
+export default function IconTooltipButton({
+  title,
+  label,
+  onClick,
+  children,
+  disabled,
+  color,
+  style,
+}) {
+  const classes = useStyles();
+  return (
+    <Tooltip title={title}>
+      <div>
+        {label ? (
+          <Button
+            disabled={disabled}
+            color={color ?? "secondary"}
+            onClick={onClick}
+            variant="contained"
+            style={style}
+          >
+            <div className={classes.labelButtonContainer}>
+              {children}
+              {label}
+            </div>
+          </Button>
+        ) : (
+          <IconButton
+            disabled={disabled}
+            color="inherit"
+            onClick={onClick}
+            edge="start"
+            className={clsx(classes.addButton)}
+          >
+            {children}
+          </IconButton>
+        )}
+      </div>
+    </Tooltip>
+  );
+}

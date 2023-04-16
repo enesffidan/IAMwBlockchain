@@ -5,17 +5,20 @@ import {
   BrowserRouter as Router,
   Switch,
 } from "react-router-dom";
+import { getViewAuthorizationForAll } from "./helpers/AuthorizationHelper";
 import SessionHelper from "./helpers/SessionHelper";
 import LanguageHelper from "./helpers/LanguageHelper";
 import Navbar from "./components/Navbar/navbar";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import MyAppsPage from "./pages/myapps/MyAppsPage";
 import SignIn from "./pages/signin/SignIn";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 // import SignUp from "./pages/SignUp/SignUp";
 // import Activation from "./pages/AccountActivated/AccountActivated";
 // import Forgot from "./pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import { LandingPage } from "./pages/landingPage";
-import AddAppsPage from "./pages/userApps/AddAppsPage";
+import AddAppsPage from "./pages/userApps/AddApps";
+import PeoplePage from "./pages/people/PeoplePage";
 
 const auth = [
   {
@@ -23,36 +26,44 @@ const auth = [
     component: SignIn,
     exact: false,
   },
-//   {
-//     path: "/signup",
-//     component: SignUp,
-//     exact: false,
-//   },
-//   {
-//     path: "/forgot",
-//     component: Forgot,
-//     exact: false,
-//   },
-//   {
-//     path: "/reset",
-//     component: ResetPassword,
-//     exact: false,
-//   },
-//   {
-//     path: "/activation",
-//     component: Activation,
-//     exact: false,
-//   },
+  //   {
+  //     path: "/signup",
+  //     component: SignUp,
+  //     exact: false,
+  //   },
+  //   {
+  //     path: "/forgot",
+  //     component: Forgot,
+  //     exact: false,
+  //   },
+  //   {
+  //     path: "/reset",
+  //     component: ResetPassword,
+  //     exact: false,
+  //   },
+  //   {
+  //     path: "/activation",
+  //     component: Activation,
+  //     exact: false,
+  //   },
 ];
 
 const publicRoutes = [
   {
     path: "/dashboard",
-    component: Dashboard,
+    component: DashboardPage,
+  },
+  {
+    path: "/my-apps",
+    component: MyAppsPage,
   },
   {
     path: "/add-apps",
     component: AddAppsPage,
+  },
+  {
+    path: "/people",
+    component: PeoplePage,
   },
 ];
 
@@ -86,11 +97,22 @@ export default function Routes() {
   const [update, setUpdate] = React.useState(false);
 
   const populateDrawerList = useCallback(() => {
+    console.log(user);
     if (user) {
+      const roles = user.roles;
+      const authorization = getViewAuthorizationForAll(roles);
       let drawerList = [
         // DASHBOARD
-        { label: language.sidebar.dashboard, Path: "/dashboard" },
-        { label: 'Add Apps', Path: "/add-apps" },
+        authorization.dashboard && {
+          label: language.sidebar.dashboard,
+          Path: "/dashboard",
+        },
+        authorization.myApps && {
+          label: "My Apps",
+          Path: "/my-apps",
+        },
+        authorization.addApps && { label: "Add Apps", Path: "/add-apps" },
+        authorization.people && { label: "People", Path: "/people" },
       ];
       setDrawerList(drawerList);
     }

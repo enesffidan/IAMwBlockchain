@@ -5,11 +5,15 @@ import { useHistory } from "react-router-dom";
 const LandingPage = () => {
   const history = useHistory();
   const isLoggedIn = SessionHelper.getIsLoggedIn();
+  const user = SessionHelper.getUser();
 
   useEffect(() => {
-    console.log("LoggedIn = ", isLoggedIn);
     if (isLoggedIn) {
-      history.push("dashboard");
+      if (user.roles.includes("ROLE_SİSTEM_ADMİNİ")) {
+        history.push("dashboard");
+      } else {
+        history.push("my-apps");
+      }
     } else history.push("signin");
   }, [isLoggedIn, history]);
 

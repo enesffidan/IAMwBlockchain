@@ -65,8 +65,9 @@ export default function SignIn({ update, setUpdate }) {
     // console.log(resp);
     // if (resp?.data?.login_status === true) {
       SessionHelper.setUser({
-        firstName: 'Onur',
-        lastName: 'Cihangir',
+        firstName: "Onur",
+        lastName: "Cihangir",
+        roles: ["ROLE_SİSTEM_ADMİNİ"],
       });
       SessionHelper.getUser();
       setUpdate(!update);
@@ -77,7 +78,7 @@ export default function SignIn({ update, setUpdate }) {
       //     } else {
       //       history?.location?.state
       //         ? history.push(history?.location?.state?.from?.pathname)
-      history.push("/dashboard");
+      history.push("/");
       //     }
       //   } else {
       //     console.log(data.key);

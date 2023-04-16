@@ -10,7 +10,7 @@ class SessionHelper {
      * Sets the user data in the session as the user data saved in the local storage by the sign in component and sets the logged in state as true.
      */
     constructor() {
-        this.setUser({username: "onur"})
+        // this.setUser({username: "onur"})
         const userInfo = localStorage.getItem('user');
         if (userInfo) {
             this.user = JSON.parse(userInfo);
