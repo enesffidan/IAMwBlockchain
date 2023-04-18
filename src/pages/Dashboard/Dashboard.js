@@ -1,14 +1,8 @@
 import React from "react";
 import { makeStyles } from "tss-react/mui";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import logo from "../../assets/GitHub-Mark.png";
-import { CardMedia } from "@mui/material";
-import Request from "../../helpers/Request";
-import { CardActionArea } from "@mui/material";
-import fblogo from "../../assets/Facebook_Logo_(2019).png";
+import { Divider } from "@mui/material";
 
 const useStyles = makeStyles()((theme) => ({
   gridContainer: {
@@ -16,59 +10,80 @@ const useStyles = makeStyles()((theme) => ({
     paddingRight: "40px",
   },
   root: {
-    minWidth: 200,
+    display: "flex",
+    flexDirection: "column",
+    overflowY: "auto",
+    maxHeight: "700px",
+    margin: "0 auto",
+    textAlign: "left",
+    padding: 10,
+    marginBottom: 10,
+    border: "solid",
+    borderWidth: "thin",
+    borderRadius: "10px",
+  },
+  typo: {
+    fontWeight: "bold",
+  },
+  circle: {
+    borderRadius: 5,
+    height: 5 * 2,
+    width: 5 * 2,
+    marginRight: 5,
+    display: "inline-block",
   },
 }));
 
 export default function Dashboard() {
   const { classes } = useStyles();
 
-  async function handleOnClick() {
-    const resp = await Request("get", "/appInstance", null);
-    console.log(resp);
-  }
-
   return (
-    <Grid
-      container
-      spacing={6}
-      className={classes.gridContainer}
-      justify="center"
-    >
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardActionArea onClick={handleOnClick}>
-            <CardMedia
-              component="img"
-              height="150"
-              image={logo}
-              alt="github"
-              sx={{ objectFit: "contain" }}
-            />
-            <CardContent>
-              <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
-                Github
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardMedia
-            component="img"
-            height="150"
-            image={fblogo}
-            alt="fb"
-            sx={{ objectFit: "contain" }}
+    <div className={classes.root}>
+      <Typography className={classes.typo} variant="h5" gutterBottom>
+        Overview
+      </Typography>
+      <Divider color="black" sx={{ height: 1, width: "100%" }} />
+      <Grid
+        container
+        spacing={6}
+        className={classes.gridContainer}
+        justify="center"
+      >
+        <Grid item xs={12} sm={6} md={4}>
+          <Typography className={classes.typo} variant="h6" gutterBottom>
+            Users
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Typography className={classes.typo} variant="h6" gutterBottom>
+            Single Sign-on Apps
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Typography className={classes.typo} variant="h6" gutterBottom>
+            Status
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Typography className={classes.typo} variant="h6" gutterBottom>
+            1
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Typography className={classes.typo} variant="h6" gutterBottom>
+            3
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+          <span
+            className={classes.circle}
+            style={{ backgroundColor: "green" }}
           />
-          <CardContent>
-            <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
-              Facebook
-            </Typography>
-          </CardContent>
-        </Card>
+          <Typography className={classes.typo} variant="body2" gutterBottom>
+            Operational
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }
