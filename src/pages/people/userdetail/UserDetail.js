@@ -2,9 +2,9 @@ import React from "react";
 import { makeStyles } from "tss-react/mui";
 import { Typography } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import IconTooltipButton from "../../components/Buttons/IconTooltipButton";
-import NewUserModal from "./NewUserModal";
-import Table from "../../components/Table/Table";
+import IconTooltipButton from "../../../components/Buttons/IconTooltipButton";
+import NewUserModal from "../NewUserModal";
+import Table from "../../../components/Table/Table";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles()((theme) => ({
     // overflowY: "auto",
     // maxHeight: "700px",
     // margin: "0 auto",
-    // textAlign: "left",
+    textAlign: "left",
     padding: 10,
     // marginBottom: 10,
     border: "solid",
@@ -28,26 +28,22 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export default function People() {
+export default function UserDetail() {
   const { classes } = useStyles();
   const columns = [
     {
-      title: "Person",
-      field: "name",
+      title: "Application",
+      field: "app",
     },
     {
-      field: "email",
-      title: "Email",
-    },
-    {
-      title: "Status",
-      field: "status",
+      field: "username",
+      title: "App Username",
     },
   ];
 
   const tableRef = React.useRef();
   const [rows, setRows] = React.useState([
-    { name: "Onur Cihangir", email: "asdasd", status: "active", id: "1" },
+    { app: "Facebook", username: "asdasd", id: "1" },
   ]);
   const [numOfEntries, setNumOfEntries] = React.useState(0);
 
@@ -68,22 +64,28 @@ export default function People() {
         modalLoading={modalLoading}
       />
       <div className={classes.root}>
-        {/* <Typography className={classes.typo} variant="h5" gutterBottom>
-          People
-        </Typography> */}
+        <Typography className={classes.typo} variant="h5" gutterBottom>
+          Onur Cihangir
+        </Typography>
+        <Typography className={classes.typo} variant="h5" gutterBottom>
+          onurcihangir@email.com
+        </Typography>
 
         <Table
+          noRowActions
           data={rows}
           tableRef={tableRef}
           columns={columns}
           authName="people"
           numOfEntries={numOfEntries}
           setNumOfEntries={setNumOfEntries}
-          tableName={"People"}
-          detailsWindow={(rowData) => window.open("/user/" + rowData.id)}
+          tableName={"Assigned Applications"}
           headerComponents={
             <div className={classes.button}>
-              <IconTooltipButton label={"Add Person"} onClick={handleOpenModal}>
+              <IconTooltipButton
+                label={"Assign Applications"}
+                onClick={handleOpenModal}
+              >
                 <PersonAddAlt1Icon />
               </IconTooltipButton>
             </div>

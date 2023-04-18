@@ -13,6 +13,40 @@
     "yes": "Yes",
     "no": "No"
   },
+  "tableLocalization": {
+    "header": {
+      "actions": "Operation"
+    },
+    "body": {
+      "deleteTooltip": "Delete",
+      "editTooltip": "Edit",
+      "filterTooltip": "Filter",
+      "emptyDataSourceMessage": "No records to show.",
+      "addTooltip": "Add",
+      "editRow": {
+        "cancelTooltip": "Cancel",
+        "saveTooltip": "Save",
+        "deleteText": "Are you sure you want to delete?"
+      }
+    },
+    "toolbar": {
+      "nRowsSelected": "{0} row(s) selected",
+      "searchTooltip": "Search",
+      "searchPlaceholder": "Search",
+      "exportTitle": "Export",
+      "exportAriaLabel": "Export",
+      "exportCSVName": "Export as XLSX",
+      "exportPDFName": "Export as PDF"
+    },
+    "pagination": {
+      "labelRowsSelect": "line",
+      "labelDisplayedRows": "Between {from}-{to} from {count} lines",
+      "firstTooltip": "First Page",
+      "previousTooltip": "Previous Page",
+      "nextTooltip": "Next Page",
+      "lastTooltip": "Last Page"
+    }
+  },
   "login": {
     "title": "Sign In",
     "email": "E-Mail Address",

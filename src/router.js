@@ -19,6 +19,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import { LandingPage } from "./pages/landingPage";
 import AddAppsPage from "./pages/userApps/AddApps";
 import PeoplePage from "./pages/people/PeoplePage";
+import UserDetail from "./pages/people/userdetail/UserDetail";
 
 const auth = [
   {
@@ -64,6 +65,10 @@ const publicRoutes = [
   {
     path: "/people",
     component: PeoplePage,
+  },
+  {
+    path: "/user",
+    component: UserDetail,
   },
 ];
 
