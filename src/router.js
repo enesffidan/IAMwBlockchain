@@ -22,6 +22,7 @@ import PeoplePage from "./pages/people/PeoplePage";
 import AppsPage from "./pages/applications/AppsPage";
 import UserDetail from "./pages/people/userdetail/UserDetail";
 import AssignApps from "./pages/applications/AssignApps";
+import AppDetail from "./pages/applications/appdetail/AppDetail";
 
 const auth = [
   {
@@ -79,6 +80,10 @@ const publicRoutes = [
   {
     path: "/assign-apps",
     component: AssignApps,
+  },
+  {
+    path: "/app",
+    component: AppDetail,
   },
 ];
 
