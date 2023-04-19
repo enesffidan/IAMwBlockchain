@@ -24,6 +24,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   buttons: {
     display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 
@@ -130,22 +131,24 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
               <Button
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 color="primary"
-                onClick={() => onButtonClick()}
+                onClick={() => handleCloseModal()}
                 className={classes.submit}
+                sx={{ backgroundColor: "white", maxWidth: 200 }}
               >
-                SEND REQUEST
+                Cancel
               </Button>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={() => handleCloseModal()}
+                onClick={() => onButtonClick()}
                 className={classes.submit}
+                sx={{ color: "white", maxWidth: 200 }}
               >
-                Cancel
+                Add Person
               </Button>
             </div>
           )}
