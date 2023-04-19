@@ -24,6 +24,10 @@ authorizationLookup.people = {
 "ROLE_SİSTEM_ADMİNİ":                       {view: true, create: true, delete: true, edit: true},
 "ROLE_USER":                                {view: false, create: false, delete: false, edit: false},
 }
+authorizationLookup.apps = {
+"ROLE_SİSTEM_ADMİNİ":                       {view: true, create: true, delete: true, edit: true},
+"ROLE_USER":                                {view: false, create: false, delete: false, edit: false},
+}
     
 
 export function getLookup() {

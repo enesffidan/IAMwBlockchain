@@ -19,7 +19,9 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import { LandingPage } from "./pages/landingPage";
 import AddAppsPage from "./pages/userApps/AddApps";
 import PeoplePage from "./pages/people/PeoplePage";
+import AppsPage from "./pages/applications/AppsPage";
 import UserDetail from "./pages/people/userdetail/UserDetail";
+import AssignApps from "./pages/applications/AssignApps";
 
 const auth = [
   {
@@ -70,6 +72,14 @@ const publicRoutes = [
     path: "/user",
     component: UserDetail,
   },
+  {
+    path: "/apps",
+    component: AppsPage,
+  },
+  {
+    path: "/assign-apps",
+    component: AssignApps,
+  },
 ];
 
 function PrivateRoute({ children, ...rest }) {
@@ -118,6 +128,7 @@ export default function Routes() {
         },
         authorization.addApps && { label: "Add Apps", Path: "/add-apps" },
         authorization.people && { label: "People", Path: "/people" },
+        authorization.apps && { label: "Applications", Path: "/apps" },
       ];
       setDrawerList(drawerList);
     }
