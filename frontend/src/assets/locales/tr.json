@@ -1,0 +1,86 @@
+{
+  "title": "Türkçe",
+  "etc": {
+    "empty": "Yok",
+    "added": "Başarıyla yaratıldı.",
+    "deleted": "Başarıyla silindi.",
+    "updated": "Başarıyla güncellendi.",
+    "approved": "Başarıyla onaylandı.",
+    "rejected": "Başarıyla reddedildi.",
+    "saved": "Başarıyla Kaydedildi",
+    "delete": "Sil",
+    "fetchingError": "Bilgiler çekilirken bir hata oluştu: ",
+    "yes": "Evet",
+    "no": "Hayır"
+  },
+  "tableLocalization": {
+    "header": {
+      "actions": "İşlem"
+    },
+    "body": {
+      "deleteTooltip": "Sil",
+      "editTooltip": "Değiştir",
+      "filterTooltip": "Filtrele",
+      "emptyDataSourceMessage": "Gösterilecek kayıt yok.",
+      "addTooltip": "Ekle",
+      "editRow": {
+        "cancelTooltip": "İptal",
+        "saveTooltip": "Kaydet",
+        "deleteText": "Silmek istediğine emin misin?"
+      }
+    },
+    "toolbar": {
+      "nRowsSelected": "{0} satır seçili",
+      "searchTooltip": "Arama",
+      "searchPlaceholder": "Ara",
+      "exportTitle": "İndir",
+      "exportAriaLabel": "İndir",
+      "exportCSVName": "XLSX olarak indir",
+      "exportPDFName": "PDF olarak indir"
+    },
+    "pagination": {
+      "labelRowsSelect": "satır",
+      "labelDisplayedRows": "{count} satırdan {from}-{to} arası",
+      "firstTooltip": "İlk Sayfa",
+      "previousTooltip": "Önceki Sayfa",
+      "nextTooltip": "Sonraki Sayfa",
+      "lastTooltip": "Son Sayfa"
+    }
+  },
+  "login": {
+    "title": "Giriş Yap",
+    "email": "E-Posta Adresi",
+    "password": "Şifre",
+    "passwordConfirm": "Şifre Tekrarı",
+    "signin": "Giriş Yap",
+    "forgot": "Şifremi Unuttum",
+    "activate": "Hesabımı Aktifleştir",
+    "send": "E-Posta Gönder",
+    "passwordMatch": "Şifreler eşleşmiyor",
+    "providePassword": "Şifre alanı boş olamaz",
+    "providePasswordConfirm": "Şifre Tekrar alanı boş olamaz",
+    "provideEmail": "E-Posta alanı boş olamaz",
+    "reset": "Şifreyi Sıfırla",
+    "unexpectedError": "Beklenmedik bir hata oluştu, lütfen tekrar deneyiniz.",
+    "emailSent": "E-Posta adresinize gelen linke tıklayarak hesabınızı aktifleştirebilirsiniz.",
+    "emailSentPass": "E-Posta adresinize gelen linke tıklayarak şifrenizi değiştirebilirsiniz.",
+    "passChanged": "Şifreniz sıfırlanmıştır, giriş sayfasına yönlendiriliyorsunuz.",
+    "weirdEmail": "Yanlış E-Posta formatı",
+    "haveAccount": "Aktif bir hesabın var mı? Giriş Yap",
+    "activated": "Hesabınız aktifleştirilmiştir.",
+    "activateError": "Hesabınız aktifleştirilirken bir sorunla karşılaşıldı. Lütfen tekrar deneyiniz."
+  },
+  "activate": {
+    "newPassword": "Yeni Şifre",
+    "passwordConfirm": "Şifreyi Onayla",
+    "activate": "Aktifleştir",
+    "gotologin": "Giriş Yap",
+    "title": "Hesap Aktifleştir"
+  },
+  "sidebar": {
+    "dashboard": "Anasayfa"
+  },
+  "navbar": {
+    "logout": "LOGOUT"
+  }
+}

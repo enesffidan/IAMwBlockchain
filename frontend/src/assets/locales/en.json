@@ -1,0 +1,86 @@
+{
+  "title": "English",
+  "etc": {
+    "empty": "None",
+    "added": "Successfully added.",
+    "deleted": "Successfully deleted.",
+    "updated": "Successfully updated.",
+    "approved": "Successfully approved.",
+    "rejected": "Successfully rejected.",
+    "saved": "Successfully saved.",
+    "delete": "Delete",
+    "fetchingError": "An error occured while fetching the data: ",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "tableLocalization": {
+    "header": {
+      "actions": "Operation"
+    },
+    "body": {
+      "deleteTooltip": "Delete",
+      "editTooltip": "Edit",
+      "filterTooltip": "Filter",
+      "emptyDataSourceMessage": "No records to show.",
+      "addTooltip": "Add",
+      "editRow": {
+        "cancelTooltip": "Cancel",
+        "saveTooltip": "Save",
+        "deleteText": "Are you sure you want to delete?"
+      }
+    },
+    "toolbar": {
+      "nRowsSelected": "{0} row(s) selected",
+      "searchTooltip": "Search",
+      "searchPlaceholder": "Search",
+      "exportTitle": "Export",
+      "exportAriaLabel": "Export",
+      "exportCSVName": "Export as XLSX",
+      "exportPDFName": "Export as PDF"
+    },
+    "pagination": {
+      "labelRowsSelect": "line",
+      "labelDisplayedRows": "Between {from}-{to} from {count} lines",
+      "firstTooltip": "First Page",
+      "previousTooltip": "Previous Page",
+      "nextTooltip": "Next Page",
+      "lastTooltip": "Last Page"
+    }
+  },
+  "login": {
+    "title": "Sign In",
+    "email": "E-Mail Address",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "signin": "Sign In",
+    "forgot": "Forgot Password",
+    "activate": "Activate Account",
+    "send": "Send E-Mail",
+    "passwordMatch": "Passwords doesn't match",
+    "providePassword": "Password field can't be empty",
+    "providePasswordConfirm": "Confirm Password field can't be empty",
+    "provideEmail": "E-mail field can't be empty",
+    "reset": "Reset Password",
+    "unexpectedError": "An unexpected error has occured, please try again later.",
+    "emailSent": "You can activate your account by clicking the link sent to your E-Mail address",
+    "emailSentPass": "You can set a new password by clicking the link sent to your E-Mail address.",
+    "passChanged": "Your password has been reset, you are being redirected to the login page.",
+    "weirdEmail": "Wrong E-Mail format",
+    "haveAccount": "Have an activated account? Sign In",
+    "activated": "Your account has been activated.",
+    "activateError": "An error has been encountered while activating your account. Please try again."
+  },
+  "activate": {
+    "newPassword": "New Password",
+    "passwordConfirm": "Confirm Password",
+    "activate": "Activate",
+    "gotologin": "Sign In",
+    "title": "Activate Account"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard"
+  },
+  "navbar": {
+    "logout": "LOGOUT"
+  }
+}
