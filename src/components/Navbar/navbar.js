@@ -1,18 +1,18 @@
 import React, { useCallback } from "react";
-import { useTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import clsx from 'clsx';
 import SessionHelper from "../../helpers/SessionHelper";
 import { useHistory } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import NavDrawer from "./components/NavDrawer";
 import LanguageHelper from "../../helpers/LanguageHelper";
-import { makeStyles } from "tss-react/mui";
 
 const drawerWidth = 260;
 
 // TODO jss-to-tss-react codemod: '@global' is not supported by tss-react.
 // See https://mui.com/material-ui/customization/how-to-customize/#4-global-css-override for alternatives.
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   "@global": {
     "*::-webkit-scrollbar": {
       width: "1em",
@@ -66,7 +66,7 @@ const useStyles = makeStyles()((theme) => ({
  */
 const Navbar = React.memo(function Navbar({ component, drawerList }) {
   const history = useHistory();
-  const { classes, cx } = useStyles();
+  const classes = useStyles();
 
   const theme = useTheme();
   // const darkTheme = createTheme({ palette: { type: 'dark' } });
@@ -117,7 +117,7 @@ const Navbar = React.memo(function Navbar({ component, drawerList }) {
       />
 
       <main
-        className={cx(classes.content, {
+        className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >

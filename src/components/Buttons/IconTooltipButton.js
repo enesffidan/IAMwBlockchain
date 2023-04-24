@@ -1,9 +1,9 @@
 import React from "react";
-import { Tooltip, IconButton, Button } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
+import { Tooltip, IconButton, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   addButton: {
     fontSize: "20px",
   },

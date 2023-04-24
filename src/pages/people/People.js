@@ -1,12 +1,11 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import { Typography } from "@mui/material";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import { makeStyles } from "@material-ui/core/styles";
+import PersonAddAlt1Icon from "@material-ui/icons/PersonAdd";
 import IconTooltipButton from "../../components/Buttons/IconTooltipButton";
 import NewUserModal from "./NewUserModal";
 import Table from "../../components/Table/Table";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // display: "flex",
     // flexDirection: "column",
@@ -29,7 +28,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export default function People() {
-  const { classes } = useStyles();
+  const classes = useStyles();
   const columns = [
     {
       title: "Person",
@@ -68,10 +67,6 @@ export default function People() {
         modalLoading={modalLoading}
       />
       <div className={classes.root}>
-        {/* <Typography className={classes.typo} variant="h5" gutterBottom>
-          People
-        </Typography> */}
-
         <Table
           data={rows}
           tableRef={tableRef}

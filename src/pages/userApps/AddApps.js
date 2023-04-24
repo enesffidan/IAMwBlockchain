@@ -1,17 +1,13 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/Card";
-import { Button, CardMedia } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { makeStyles } from "tss-react/mui";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/Card";
+import { Button, CardMedia } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/GitHub-Mark.png";
 import AddAppModal from "./AddAppModal";
 
-const useStyles = makeStyles()((theme) => ({
-  gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-  },
+const useStyles = makeStyles((theme) => ({
   card: {
     width: 665,
     // height: 133,
@@ -32,10 +28,26 @@ const useStyles = makeStyles()((theme) => ({
     left: 377,
     top: 133,
   },
+  header: {
+    fontSize: "24",
+    display: "flex",
+    alignItems: "left",
+    paddingBottom: 5,
+    fontWeight: "600",
+  },
+  cardMedia: {
+    objectFit: "contain",
+    width: 101,
+  },
+  cardTypo: {
+    fontSize: "24",
+    marginRight: 30,
+    fontWeight: "600",
+  },
 }));
 
 export default function AddApps() {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   const [modal, setModal] = React.useState(false);
   const [modalLoading, setModalLoading] = React.useState(false);
@@ -53,17 +65,7 @@ export default function AddApps() {
         modalLoading={modalLoading}
         setModal={setModal}
       />
-      <Typography
-        color="textPrimary"
-        fontWeight={"600"}
-        gutterBottom
-        sx={{
-          fontSize: "24",
-          display: "flex",
-          alignItems: "left",
-          paddingBottom: 5,
-        }}
-      >
+      <Typography color="textPrimary" gutterBottom className={classes.header}>
         Application Catalogue
       </Typography>
       <Card className={classes.card} variant="outlined">
@@ -72,14 +74,13 @@ export default function AddApps() {
           height="150"
           image={logo}
           alt="github"
-          sx={{ objectFit: "contain", width: 101 }}
+          className={classes.cardMedia}
         />
         <CardContent className={classes.cardContent}>
           <Typography
             color="textPrimary"
-            fontWeight={"600"}
             gutterBottom
-            sx={{ fontSize: "24", marginRight: 30 }}
+            className={classes.cardTypo}
           >
             Github
           </Typography>

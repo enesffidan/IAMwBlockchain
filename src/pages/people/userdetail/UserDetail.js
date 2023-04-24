@@ -1,12 +1,12 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import { Typography } from "@mui/material";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import PersonAddAlt1Icon from "@material-ui/icons/PersonAdd";
 import IconTooltipButton from "../../../components/Buttons/IconTooltipButton";
 import NewUserModal from "../NewUserModal";
 import Table from "../../../components/Table/Table";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // display: "flex",
     // flexDirection: "column",
@@ -29,7 +29,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export default function UserDetail() {
-  const { classes } = useStyles();
+  const classes = useStyles();
   const columns = [
     {
       title: "Application",

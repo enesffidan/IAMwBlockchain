@@ -6,15 +6,16 @@ import {
   IconButton,
   Button,
   Grid,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+} from "@material-ui/core";
+import clsx from 'clsx'
+import MenuIcon from "@material-ui/icons/Menu";
 import LanguageHelper from "../../../helpers/LanguageHelper";
 import SessionHelper from "../../../helpers/SessionHelper";
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
     fontFamily: theme.typography.fontFamily.Helvetica,
     backgroundColor: "#E3F3FA",
@@ -63,12 +64,12 @@ const useStyles = makeStyles()((theme) => ({
  * @param {open: boolean, handleDrawerOpen: func, logout: func} param properties of the topbar component
  */
 export default function TopBar({ open, handleDrawerOpen, logout }) {
-  const { classes, cx } = useStyles();
+  const classes = useStyles();
   const language = LanguageHelper.getLanguage();
   return (
     <AppBar
       position="fixed"
-      className={cx(classes.appBar, {
+      className={clsx(classes.appBar, {
         [classes.appBarShift]: open,
       })}
     >
@@ -78,7 +79,7 @@ export default function TopBar({ open, handleDrawerOpen, logout }) {
           aria-label="open drawer"
           // onClick={handleDrawerOpen}
           edge="start"
-          className={cx(classes.menuButton, open && classes.hide)}
+          className={clsx(classes.menuButton, open && classes.hide)}
           size="large"
         >
           <MenuIcon />

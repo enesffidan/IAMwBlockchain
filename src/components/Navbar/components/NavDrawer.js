@@ -1,18 +1,18 @@
 import React from 'react';
 // import { IconButton } from '@mui/material';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 // import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // import Settings from '../../Buttons/Settings';
 import MenuItems from './MenuItems';
-import { makeStyles } from 'tss-react/mui';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const drawerWidth = 300;
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     maxWidth: drawerWidth + 20,
@@ -52,7 +52,7 @@ const useStyles = makeStyles()((theme) => ({
  * @param {open: boolean, drawerList: obj[], darkMode: boolean, setDarkMode: func, setLanguage: func, theme: obj, handleDrawerClose: func} param properties of the drawer component 
  */
 export default function NavDrawer({ open, drawerList, darkMode, setDarkMode, setLanguage, theme, handleDrawerClose }) {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   return (
     <Drawer

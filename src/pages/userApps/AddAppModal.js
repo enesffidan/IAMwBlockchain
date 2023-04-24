@@ -1,19 +1,26 @@
 import React, { useCallback } from "react";
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   CircularProgress,
   FormControl,
   Typography,
-} from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+} from "@material-ui/core";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 
-const useStyles = makeStyles()((theme) => ({
-  submit: {
+const useStyles = makeStyles((theme) => ({
+  cancelButton: {
     margin: "10px 1rem 0",
+    backgroundColor: "white",
+    maxWidth: 200,
+  },
+  saveButton: {
+    margin: "10px 1rem 0",
+    color: "white",
+    maxWidth: 200,
   },
   formControl: {
     width: "70vw",
@@ -24,10 +31,23 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  header: {
+    fontSize: "24",
+    display: "flex",
+    alignItems: "left",
+    paddingBottom: 5,
+    fontWeight: "600",
+  },
+  typo: {
+    fontSize: "20",
+    display: "flex",
+    alignItems: "left",
+    paddingBottom: 5,
+  },
 }));
 
 export default function AddAppModal({ modal, setModal, modalLoading }) {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState("female");
@@ -65,29 +85,10 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
       modalLoading={modalLoading}
     >
       <FormControl required autoComplete="off" className={classes.formControl}>
-        <Typography
-          color="textPrimary"
-          fontWeight={"600"}
-          gutterBottom
-          sx={{
-            fontSize: "24",
-            display: "flex",
-            alignItems: "left",
-            paddingBottom: 5,
-          }}
-        >
+        <Typography color="textPrimary" gutterBottom className={classes.header}>
           Request Access to App
         </Typography>
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          sx={{
-            fontSize: "20",
-            display: "flex",
-            alignItems: "left",
-            paddingBottom: 5,
-          }}
-        >
+        <Typography color="textPrimary" gutterBottom className={classes.typo}>
           Send request to your admin with app you would like to access. Choose
           your configuration:
         </Typography>
@@ -98,8 +99,16 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
           value={value}
           onChange={handleChange}
         >
-          <FormControlLabel value="female" control={<Radio />} label="I have an account" />
-          <FormControlLabel value="male" control={<Radio />} label="Let admin decide my username and password" />
+          <FormControlLabel
+            value="female"
+            control={<Radio />}
+            label="I have an account"
+          />
+          <FormControlLabel
+            value="male"
+            control={<Radio />}
+            label="Let admin decide my username and password"
+          />
         </RadioGroup>
         <div style={{ paddingBottom: 20, textAlign: "center" }}>
           {loading ? (
@@ -112,8 +121,7 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
                 variant="outlined"
                 color="primary"
                 onClick={() => handleCloseModal()}
-                className={classes.submit}
-                sx={{ backgroundColor: "white", maxWidth: 200 }}
+                className={classes.cancelButton}
               >
                 Cancel
               </Button>
@@ -123,8 +131,7 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
                 variant="contained"
                 color="primary"
                 onClick={() => onButtonClick()}
-                className={classes.submit}
-                sx={{ color: "white", maxWidth: 200 }}
+                className={classes.saveButton}
               >
                 SEND REQUEST
               </Button>

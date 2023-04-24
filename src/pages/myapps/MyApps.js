@@ -1,27 +1,35 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import logo from "../../assets/GitHub-Mark.png";
-import { CardMedia } from "@mui/material";
+import { CardMedia } from "@material-ui/core";
 import Request from "../../helpers/Request";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea } from "@material-ui/core";
 import fblogo from "../../assets/Facebook_Logo_(2019).png";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   gridContainer: {
     paddingLeft: "40px",
     paddingRight: "40px",
+    display: "flex",
+    justifyContent: "flex-start",
   },
   root: {
     minWidth: 200,
   },
+  cardMedia: {
+    objectFit: "contain",
+  },
+  typo: {
+    fontWeight: "600",
+  },
 }));
 
 export default function MyApps() {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   async function handleOnClick() {
     const resp = await Request("get", "/appInstance", null);
@@ -33,7 +41,7 @@ export default function MyApps() {
       container
       spacing={6}
       className={classes.gridContainer}
-      justify="center"
+      justifyContent="center"
     >
       <Grid item xs={12} sm={6} md={4}>
         <Card className={classes.root} variant="outlined">
@@ -43,10 +51,14 @@ export default function MyApps() {
               height="150"
               image={logo}
               alt="github"
-              sx={{ objectFit: "contain" }}
+              className={classes.cardMedia}
             />
             <CardContent>
-              <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
+              <Typography
+                color="textPrimary"
+                className={classes.typo}
+                gutterBottom
+              >
                 Github
               </Typography>
             </CardContent>
@@ -60,10 +72,14 @@ export default function MyApps() {
             height="150"
             image={fblogo}
             alt="fb"
-            sx={{ objectFit: "contain" }}
+            className={classes.cardMedia}
           />
           <CardContent>
-            <Typography color="textPrimary" fontWeight={"600"} gutterBottom>
+            <Typography
+              color="textPrimary"
+              className={classes.typo}
+              gutterBottom
+            >
               Facebook
             </Typography>
           </CardContent>

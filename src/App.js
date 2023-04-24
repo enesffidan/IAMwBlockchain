@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@material-ui/core";
 import "./App.css";
 import RoutesComp from "./router";
 import globalTheme from "./globalTheme";

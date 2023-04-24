@@ -1,11 +1,11 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import { CircularProgress, Modal } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
-import Fade from "@mui/material/Fade";
+import { makeStyles } from "@material-ui/core/styles";
+import { CircularProgress, Modal } from "@material-ui/core";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 import { modalStyles } from "../../assets/styles/tableContainer";
 
-const useStyles = makeStyles()((theme) => modalStyles(theme));
+const useStyles = makeStyles((theme) => modalStyles(theme));
 
 /**
  * Modal component used in tables for adding/editing entries.
@@ -17,7 +17,7 @@ export default function TableEntryModal({
   modalLoading,
   children,
 }) {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   return (
     <React.Fragment>
@@ -33,10 +33,10 @@ export default function TableEntryModal({
         //     timeout: 500,
         //   },
         // }}
-        // BackdropComponent={Backdrop}
-        // BackdropProps={{
-        //   timeout: 500,
-        // }}
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
         <Fade in={modal}>
           <div className={classes.paper}>

@@ -1,18 +1,18 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { Divider } from "@mui/material";
-import Box from "@mui/material/Box";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import { Divider } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   gridContainer: {
     paddingLeft: "40px",
     paddingRight: "40px",
@@ -20,7 +20,7 @@ const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    overflowY: "auto",
+    // overflowY: "auto",
     maxHeight: "700px",
     margin: "0 auto",
     textAlign: "left",
@@ -40,10 +40,42 @@ const useStyles = makeStyles()((theme) => ({
   submit: {
     margin: "10px 1rem 0",
   },
+  cancelButton: {
+    backgroundColor: "white",
+    maxWidth: 200,
+    margin: "10px 1rem 0",
+  },
+  saveButton: {
+    color: "white",
+    maxWidth: 200,
+    margin: "10px 1rem 0",
+  },
+  box: {
+    display: "flex",
+    backgroundColor: "#D9D9D9",
+    border: "solid",
+    borderWidth: "2px",
+    borderRadius: 5,
+    width: 359,
+  },
+  formLabel: {
+    padding: 10,
+    fontWeight: "bold",
+    color: "black",
+  },
+  divider: {
+    height: 1,
+    width: 356,
+    marginLeft: -3,
+    backgroundColor: "black",
+  },
+  formControl: {
+    margin: 3,
+  },
 }));
 
 export default function AssignApps() {
-  const { classes } = useStyles();
+  const classes = useStyles();
   const history = useHistory();
 
   const [apps, setApps] = React.useState([{ name: "Facebook", id: "1" }]);
@@ -96,31 +128,23 @@ export default function AssignApps() {
         container
         spacing={6}
         className={classes.gridContainer}
-        justify="center"
+        justifyContent="center"
       >
         <Grid item xs={12} sm={6} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              backgroundColor: "#D9D9D9",
-              border: "solid",
-              borderWidth: "2px",
-              borderRadius: 5,
-              width: 359,
-            }}
-          >
-            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+          <Box className={classes.box}>
+            <FormControl
+              className={classes.formControl}
+              component="fieldset"
+              variant="standard"
+            >
               <FormLabel
                 component="legend"
                 focused={false}
-                sx={{ paddingBottom: 1, fontWeight: "bold" }}
+                className={classes.formLabel}
               >
                 Application
               </FormLabel>
-              <Divider
-                color="black"
-                sx={{ height: 1, width: 356, marginLeft: -3 }}
-              />
+              <Divider className={classes.divider} />
               <FormGroup>
                 {apps.map((app) => (
                   <>
@@ -134,10 +158,7 @@ export default function AssignApps() {
                       }
                       label={app.name}
                     />
-                    <Divider
-                      color="black"
-                      sx={{ height: 1, width: 356, marginLeft: -3 }}
-                    />
+                    <Divider className={classes.divider} />
                   </>
                 ))}
               </FormGroup>
@@ -145,28 +166,20 @@ export default function AssignApps() {
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              backgroundColor: "#D9D9D9",
-              border: "solid",
-              borderWidth: "2px",
-              borderRadius: 5,
-              width: 359,
-            }}
-          >
-            <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+          <Box className={classes.box}>
+            <FormControl
+              className={classes.formControl}
+              component="fieldset"
+              variant="standard"
+            >
               <FormLabel
                 component="legend"
                 focused={false}
-                sx={{ paddingBottom: 1, fontWeight: "bold" }}
+                className={classes.formLabel}
               >
                 People
               </FormLabel>
-              <Divider
-                color="black"
-                sx={{ height: 1, width: 356, marginLeft: -3 }}
-              />
+              <Divider className={classes.divider} />
               <FormGroup>
                 {users.map((user) => (
                   <>
@@ -176,10 +189,7 @@ export default function AssignApps() {
                       }
                       label={user.name}
                     />
-                    <Divider
-                      color="black"
-                      sx={{ height: 1, width: 356, marginLeft: -3 }}
-                    />
+                    <Divider className={classes.divider} />
                   </>
                 ))}
               </FormGroup>
@@ -194,8 +204,7 @@ export default function AssignApps() {
           variant="outlined"
           color="primary"
           onClick={() => history.push("/apps")}
-          className={classes.submit}
-          sx={{ backgroundColor: "white", maxWidth: 200 }}
+          className={classes.cancelButton}
         >
           Cancel
         </Button>
@@ -205,8 +214,7 @@ export default function AssignApps() {
           variant="contained"
           color="primary"
           // onClick={() => onButtonClick()}
-          className={classes.submit}
-          sx={{ color: "white", maxWidth: 200 }}
+          className={classes.saveButton}
         >
           Next
         </Button>

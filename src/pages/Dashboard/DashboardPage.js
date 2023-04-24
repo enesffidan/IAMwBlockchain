@@ -1,7 +1,7 @@
 import React from 'react';
 import Dashboard from './Dashboard';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import { tableContainerStyles } from '../../assets/styles/tableContainer';
 import UnauthorizedPage from '../UnauthorizedPage';
 import { getAuthorizationForPage } from '../../helpers/AuthorizationHelper';

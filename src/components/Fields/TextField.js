@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { TextField } from "@material-ui/core";
 
 export const TextArea = ({
   autoFocus,
@@ -38,6 +38,7 @@ export const TextArea = ({
       onChange={(value) => onChangeFunc && onChangeFunc(value)}
       onBlur={(value) => onBlurFunc && onBlurFunc(value)}
       KeyboardButtonProps={keyboardButtonProps}
+      variant='outlined'
     />
   );
 };

@@ -1,14 +1,14 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import { Typography } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Button from "@mui/material/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // display: "flex",
     // flexDirection: "column",
@@ -44,11 +44,13 @@ const useStyles = makeStyles()((theme) => ({
   },
   submit: {
     margin: "0 1rem 0",
+    color: "white",
+    maxWidth: 150,
   },
 }));
 
 export default function AppDetail() {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   const [value, setValue] = React.useState("user");
 
@@ -66,9 +68,9 @@ export default function AppDetail() {
           <Typography className={classes.typo} variant="h6" gutterBottom>
             Settings
           </Typography>
-          <FormControl sx={{ paddingLeft: 2 }}>
+          <FormControl className={{ paddingLeft: 2 }}>
             <FormLabel
-              sx={{ paddingBottom: 1, fontWeight: "bold" }}
+              className={{ paddingBottom: 1, fontWeight: "bold" }}
               focused={false}
             >
               Sign-on Methods
@@ -94,7 +96,6 @@ export default function AppDetail() {
               color="primary"
               // onClick={() => onButtonClick()}
               className={classes.submit}
-              sx={{ color: "white", maxWidth: 150 }}
             >
               Save
             </Button>

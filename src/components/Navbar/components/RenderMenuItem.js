@@ -1,13 +1,13 @@
 import React from "react";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListIcon from "@mui/icons-material/List";
-import HomeIcon from "@mui/icons-material/Home";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListIcon from "@material-ui/icons/List";
+import HomeIcon from "@material-ui/icons/Home";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   listItemIcon: {
     color: "#000000",
   },
@@ -22,7 +22,7 @@ const useStyles = makeStyles()((theme) => ({
  * @param {open: boolean, drawerList: obj[], darkMode: boolean, setDarkMode: func, setLanguage: func, theme: obj, handleDrawerClose: func} param properties of the drawer component
  */
 export default function RenderMenuItem({ value, index, outer }) {
-  const { classes } = useStyles();
+  const classes = useStyles();
   const history = useHistory();
 
   const onClick = () => {

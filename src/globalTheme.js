@@ -1,4 +1,4 @@
-import { colors, createTheme } from "@mui/material";
+import { createTheme } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
@@ -7,7 +7,7 @@ const theme = createTheme({
       contrastText: "#000", //button text black instead of white
     },
     secondary: {
-      main: colors.green[100],
+      main: '#528CFC',
     },
     background: {
       default: "#E3F3FA",

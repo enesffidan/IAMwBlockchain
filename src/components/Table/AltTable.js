@@ -7,7 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
+} from "@material-ui/core";
 
 export default function AltTable({ titles, rows }) {
   const RenderRow = ({ row }) => {

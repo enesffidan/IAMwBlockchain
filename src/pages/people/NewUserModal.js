@@ -1,17 +1,27 @@
 import React, { useCallback } from "react";
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   CircularProgress,
   FormControl,
   Typography,
-} from "@mui/material";
+} from "@material-ui/core";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 import { TextArea } from "../../components/Fields/TextField";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   submit: {
     margin: "10px 1rem 0",
+  },
+  cancelButton: {
+    margin: "10px 1rem 0",
+    backgroundColor: "white",
+    maxWidth: 200,
+  },
+  saveButton: {
+    margin: "10px 1rem 0",
+    color: "white",
+    maxWidth: 200,
   },
   formControl: {
     width: "70vw",
@@ -26,10 +36,17 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  typo: {
+    fontSize: "24",
+    display: "flex",
+    alignItems: "left",
+    paddingBottom: 5,
+    fontWeight: "600",
+  },
 }));
 
 export default function NewUserModal({ modal, setModal, modalLoading }) {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState("female");
@@ -70,17 +87,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
       modalLoading={modalLoading}
     >
       <FormControl required autoComplete="off" className={classes.formControl}>
-        <Typography
-          color="textPrimary"
-          fontWeight={"600"}
-          gutterBottom
-          sx={{
-            fontSize: "24",
-            display: "flex",
-            alignItems: "left",
-            paddingBottom: 5,
-          }}
-        >
+        <Typography color="textPrimary" gutterBottom className={classes.typo}>
           Add Person
         </Typography>
         <TextArea //FIRST NAME
@@ -134,8 +141,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
                 variant="outlined"
                 color="primary"
                 onClick={() => handleCloseModal()}
-                className={classes.submit}
-                sx={{ backgroundColor: "white", maxWidth: 200 }}
+                className={classes.cancelButton}
               >
                 Cancel
               </Button>
@@ -145,8 +151,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
                 variant="contained"
                 color="primary"
                 onClick={() => onButtonClick()}
-                className={classes.submit}
-                sx={{ color: "white", maxWidth: 200 }}
+                className={classes.saveButton}
               >
                 Add Person
               </Button>

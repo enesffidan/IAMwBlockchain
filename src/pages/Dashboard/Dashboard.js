@@ -1,18 +1,19 @@
 import React from "react";
-import { makeStyles } from "tss-react/mui";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { Divider } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import { Divider } from "@material-ui/core";
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles((theme) => ({
   gridContainer: {
+    paddingTop: 10,
     paddingLeft: "40px",
     paddingRight: "40px",
   },
   root: {
     display: "flex",
     flexDirection: "column",
-    overflowY: "auto",
+    // overflowY: "auto",
     maxHeight: "700px",
     margin: "0 auto",
     textAlign: "left",
@@ -32,17 +33,25 @@ const useStyles = makeStyles()((theme) => ({
     marginRight: 5,
     display: "inline-block",
   },
+  gridClass: {
+    display: "flex",
+  },
+  divider: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#000000",
+  },
 }));
 
 export default function Dashboard() {
-  const { classes } = useStyles();
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Typography className={classes.typo} variant="h5" gutterBottom>
         Overview
       </Typography>
-      <Divider color="black" sx={{ height: 1, width: "100%" }} />
+      <Divider className={classes.divider} />
       <Grid
         container
         spacing={6}
@@ -74,7 +83,7 @@ export default function Dashboard() {
             3
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+        <Grid item xs={12} sm={6} md={4} className={classes.gridClass}>
           <span
             className={classes.circle}
             style={{ backgroundColor: "green" }}

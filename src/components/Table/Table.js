@@ -2,30 +2,30 @@ import React, { useCallback } from "react";
 import { ResponsiveContainer } from "recharts";
 import MaterialTable, { MTableToolbar } from "@material-table/core";
 import { forwardRef } from "react";
-import AddBox from "@mui/icons-material/AddBox";
-import { LibraryAdd, Save } from "@mui/icons-material/";
-import ArrowDownward from "@mui/icons-material/ArrowDownward";
-import Check from "@mui/icons-material/Check";
-import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import ChevronRight from "@mui/icons-material/ChevronRight";
-import Clear from "@mui/icons-material/Clear";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
-import Edit from "@mui/icons-material/Edit";
-import FilterList from "@mui/icons-material/FilterList";
-import FirstPage from "@mui/icons-material/FirstPage";
-import LastPage from "@mui/icons-material/LastPage";
-import Remove from "@mui/icons-material/Remove";
-import SaveAlt from "@mui/icons-material/SaveAlt";
-import Search from "@mui/icons-material/Search";
-import ViewColumn from "@mui/icons-material/ViewColumn";
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import AddBox from "@material-ui/icons/AddBox";
+import { LibraryAdd, Save } from "@material-ui/icons";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Check from "@material-ui/icons/Check";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import Clear from "@material-ui/icons/Clear";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import Edit from "@material-ui/icons/Edit";
+import FilterList from "@material-ui/icons/FilterList";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import Remove from "@material-ui/icons/Remove";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import Search from "@material-ui/icons/Search";
+import ViewColumn from "@material-ui/icons/ViewColumn";
+import SyncAltIcon from '@material-ui/icons/SyncAlt';
 import LanguageHelper from "../../helpers/LanguageHelper";
 import SessionHelper from "../../helpers/SessionHelper";
 import { getAuthorizationForPage } from "../../helpers/AuthorizationHelper";
-import { Refresh } from "@mui/icons-material/";
-import ListIcon from '@mui/icons-material/List';
+import { Refresh } from "@material-ui/icons";
+import ListIcon from '@material-ui/icons/List';
 import CustomRow from "./CustomRow";
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@material-ui/core/styles";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -214,7 +214,7 @@ export default function Table({
             }),
             !noRowActions && detailsWindow && {
               icon: tableIcons.List,
-              tooltip: "Detayları Aç",
+              tooltip: "Open Details",
               position: "row",
               onClick: (event, rowData) => detailsWindow(rowData),
             },
@@ -310,7 +310,7 @@ export default function Table({
                 top: 0
               }}/>
             ), */
-            // Row: CustomRow,
+            Row: CustomRow,
             /* Body: (props) => (
               <CustomTableBody
                 {...props}
