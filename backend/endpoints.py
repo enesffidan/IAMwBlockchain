@@ -78,16 +78,31 @@ def applicationCatalog():
 @app.route("/addPerson", methods=['POST'])
 def addPerson():
     data = request.get_json()
-    print(data)
+
+    token = data["token"]
+    payload = AUTH_SERVICE.verify_token(token)
+
+    if payload["username"] == "admin1":
+
+        password_hash = AUTH_SERVICE.hash_password(data["password"])
+        # user = {"username": data["username"],
+        #         "password": data["password"],
+        #         "apps": "",
+        #         "role": "ROLE_USER"}
+
+        DB_SERVICE.add_user(data["firstName"], password_hash, "", "ROLE_USER")
+
+        return {'status' : True}
+    else:
+        return {'status' : False}
 
 
+@app.route("/fetchUsers", methods=['GET'])
+def fetchAllUsers():
+    user_list = DB_SERVICE.fetch_all_users()
 
+    return user_list
     
-
-
-
-
-
 
 @app.route("/admin/displayUsers", methods=['GET'])
 def display_users():

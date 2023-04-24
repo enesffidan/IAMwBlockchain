@@ -1,5 +1,5 @@
 import jwt
-
+import hashlib
 
 class Auth():
 
@@ -17,3 +17,10 @@ class Auth():
             return payload
         except jwt.InvalidTokenError:
             return None
+        
+    def hash_password(self, password):
+        # Function to hash a password
+        # Convert the password to bytes and hash it using SHA-256
+        hash_obj = hashlib.sha256(password.encode('utf-8'))
+        # Return the hexadecimal representation of the hash
+        return hash_obj.hexdigest()

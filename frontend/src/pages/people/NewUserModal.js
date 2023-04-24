@@ -6,8 +6,10 @@ import {
   FormControl,
   Typography,
 } from "@mui/material";
+import Request from "../../helpers/Request";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 import { TextArea } from "../../components/Fields/TextField";
+import SessionHelper from "../../helpers/SessionHelper";
 
 const useStyles = makeStyles()((theme) => ({
   submit: {
@@ -30,7 +32,8 @@ const useStyles = makeStyles()((theme) => ({
 
 export default function NewUserModal({ modal, setModal, modalLoading }) {
   const { classes } = useStyles();
-
+  const user = SessionHelper.getUser();
+  const token = user.token;
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState("female");
   const [newUserProps, setNewUserProps] = React.useState({
@@ -49,31 +52,42 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
   }, [init]);
 
   const onButtonClick = () => {
-    handleRequest(newUserProps.username, newUserProps.firstName, newUserProps.lastName, newUserProps.password,
-      newUserProps.email, "token_text");
+    handleRequest(
+      newUserProps.username,
+      newUserProps.firstName,
+      newUserProps.lastName,
+      newUserProps.password,
+      newUserProps.email,
+      token
+    );
   };
 
-
-  //TODO: buraya ekstra bakılacak requestle ilgili bir problem var
-  async function handleRequest(username, firstName, lastName, password, email, token) {
+  async function handleRequest(
+    username,
+    firstName,
+    lastName,
+    password,
+    email,
+    token
+  ) {
     setLoading(true);
-    const resp = await new Request("post", "/addPerson", {
+    const resp = await Request("post", "/addPerson", {
       username: username,
       firstName: firstName,
       lastName: lastName,
       password: password,
       email: email,
-      token: token
+      token: token,
     });
+    console.log(resp);
     handleCloseModal();
     setLoading(false);
   }
-  
+
   const handleCloseModal = (event, reason) => {
     if (reason && reason == "backdropClick") return;
     setModal(false);
   };
-
 
   return (
     <TableEntryModal

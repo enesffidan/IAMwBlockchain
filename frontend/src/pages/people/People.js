@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import { Typography } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import IconTooltipButton from "../../components/Buttons/IconTooltipButton";
 import NewUserModal from "./NewUserModal";
 import Table from "../../components/Table/Table";
+import Request from "../../helpers/Request";
+import { useEffect } from "react";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -33,15 +35,15 @@ export default function People() {
   const columns = [
     {
       title: "Person",
-      field: "name",
+      field: "username",
     },
     {
-      field: "email",
-      title: "Email",
+      title: "Username",
+      field: "username",
     },
     {
       title: "Status",
-      field: "status",
+      field: "apps",
     },
   ];
 
@@ -54,6 +56,12 @@ export default function People() {
   const [modal, setModal] = React.useState(false);
   const [modalLoading, setModalLoading] = React.useState(false);
 
+  const getUsers = useCallback(async () => {
+    const users = await Request("get", "/fetchUsers");
+    setRows(users.data);
+    console.log("asd", users);
+  }, []);
+  useEffect(() => getUsers(), []);
   const handleOpenModal = () => {
     setModalLoading(true);
     setModal(true);

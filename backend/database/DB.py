@@ -44,7 +44,7 @@ class DBService():
 
     def add_user(self, username, password, apps, role):
         # connect to database
-        conn = sqlite3.connect('example.db')
+        conn = sqlite3.connect('C:/Users/Cayat/Desktop/IAMwBlockchain/backend/database/example.db')
         
         # create a cursor object
         c = conn.cursor()
@@ -58,6 +58,33 @@ class DBService():
         # commit changes and close connection
         conn.commit()
         conn.close()
+
+    def fetch_all_users(self):
+        # connect to the database
+        conn = sqlite3.connect('C:/Users/Cayat/Desktop/IAMwBlockchain/backend/database/example.db')
+
+        # create a cursor
+        c = conn.cursor()
+
+        # execute the query to get all users
+        c.execute("SELECT * FROM users")
+
+        # fetch all the results
+        users = c.fetchall()
+
+        # close the cursor and connection
+        c.close()
+        conn.close()
+
+        user_list = []
+        for user in users:
+            user_json = {"id": user[0],
+                         "username": user[1],
+                         "password": user[2],
+                         "apps": user[3],
+                         "role": user[4]}
+            user_list.append(user_json)
+        return user_list
 
     def get_user_apps(username):
         # connect to database
@@ -93,7 +120,7 @@ class DBService():
 
     def find_user(self, username, password):
         # connect to database
-        conn = sqlite3.connect('/Users/macbook/Desktop/IAM-Tez/backend/database/example.db')
+        conn = sqlite3.connect('C:/Users/Cayat/Desktop/IAMwBlockchain/backend/database/example.db')
         
         # create a cursor object
         c = conn.cursor()
