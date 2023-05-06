@@ -73,7 +73,7 @@ class DB_USER():
             user_list.append(user_json)
         return user_list
     
-    def get_user_apps(username):
+    def get_user_apps(self, username):
         # connect to database
         conn = sqlite3.connect('IAM.db')
         

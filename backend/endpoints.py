@@ -40,16 +40,26 @@ def login():
     print(response_data)
     return response_data
 
-@app.route("/assign", methods=['POST'])
-def assignApplication():
-
-    data = request.get_json()
-    appName = data["appName"]
-    username = data["username"]
-
-
-@app.route("/requestApp", methods=['GET'])
+@app.route("/requestApp", methods=['POST'])
 def userRequestApp():
+    # Get the token from the request headers
+    token = request.headers.get("Authorization")
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
+
+    data = request.get_json() #Have account
+
+    if data == True: # Kullanıcının kendi accountu var
+        pass
+    elif data == False: #Kullanıcın kendi accountu yok olusturulacak 3rd party app için
+        pass
+
+
+
+
+
+@app.route("/requestAppDisplay", methods=['GET'])
+def userRequestAppDisplay():
     # Get the token from the request headers
     token = request.headers.get("Authorization")
 
@@ -86,8 +96,15 @@ def myApps():
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
 
-    user_data = DB_SERVICE.DB_USER.find_user(username)
-    return user_data["apps"]
+    user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
+
+    result = []
+    for app in user_apps:
+        print(app)
+        app_data = DB_SERVICE.DB_APP.search_app_by_name(app)
+        result.append(app_data)
+    
+    return result
 
 
 @app.route("/appCatalog", methods=['GET'])
@@ -122,6 +139,9 @@ def addPerson():
         return {'status' : True}
     else:
         return {'status' : False}
+    
+
+
 
 
 @app.route("/fetchUsers", methods=['GET'])

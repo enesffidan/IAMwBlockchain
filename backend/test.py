@@ -3,6 +3,10 @@ from login import Login
 from database.DB import *
 
 
+
+
+
+
 db_service = DBService()
 
 
@@ -10,6 +14,9 @@ db_service = DBService()
 
 login_service = Login()
 auth_service = Auth()
+
+
+
 #USER TABLOSU OLUSTURULDU
 #db_service.DB_USER.create_users_table()
 
