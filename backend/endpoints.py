@@ -48,23 +48,46 @@ def assignApplication():
     username = data["username"]
 
 
+@app.route("/requestApp", methods=['GET'])
+def userRequestApp():
+    # Get the token from the request headers
+    token = request.headers.get("Authorization")
 
-@app.route("/myApps", methods=['GET'])
-def myApps():
-    #JWT Token from front
-    jwt_token = request.get_json()
-
-    #Verify JWT Token
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
     
     user_data = DB_SERVICE.DB_USER.find_user(username)
+    user_apps = user_data["apps"]
+
+
+    app_catalog_list = DB_SERVICE.DB_APP.fetch_all_apps()
+
+    
+    user_apps_result = []
+    for app in user_apps:
+        app_data = DB_SERVICE.DB_APP.search_app_by_name(app)
+        user_apps_result.append(app_data)
+
+    return app_catalog_list, user_apps_result
+
+
+
+@app.route("/myApps", methods=['GET'])
+def myApps():
+# Get the token from the request headers
+    token = request.headers.get("Authorization")
+
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
+
+    #Verify JWT Token
+    verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
+    username = verify_token_data["username"]
+
+    user_data = DB_SERVICE.DB_USER.find_user(username)
     return user_data["apps"]
-
-
-    user_myapps_list = display_myapps(username)
-
-    return user_myapps_list
 
 
 @app.route("/appCatalog", methods=['GET'])

@@ -67,3 +67,22 @@ class DB_APP():
 
         # return the JSON representation of the fetched apps
         return json_apps
+    
+    def search_app_by_name(self, appname):
+        # connect to the database
+        conn = sqlite3.connect('IAM.db')
+
+        # create a cursor object
+        c = conn.cursor()
+
+        # execute a SELECT query to search for the app by name
+        c.execute("SELECT * FROM apps WHERE appname=?", (appname,))
+
+        # fetch the row from the result set
+        row = c.fetchone()
+
+        # close the connection
+        conn.close()
+
+        # return the row if found, or None if not found
+        return row

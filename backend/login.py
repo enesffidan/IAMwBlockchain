@@ -34,19 +34,15 @@ class Login():
             return False
 
     def login_action(self, username, password):
-        #TODO: user login oldugunda jwt token üretilecek ve bu token tüm aksiyonlarda verify edilerek
-        #o action'ın hangi user tarafından yapıldığı belirlenecek.
-
-        #self.DB_SERVICE.create_users_table()
-        #self.DB_SERVICE.add_user("enes", "123", "Github", "User")
-        result = self.DB_SERVICE.find_user(username,password)
-
-        if result == None:
-            return False, None
         
-        else:
-            if username == result["username"] and password == result["password"]:
-                jwt_token = self.AUTH_SERVICE.create_jwt_token(username)
-                
+        result = self.DB_SERVICE.DB_USER.find_user(username)
+        login_status = self.AUTH_SERVICE.validate_password(password, result["password"])
 
-                return True, jwt_token, result["role"]
+        jwt_token = self.AUTH_SERVICE.create_jwt_token(username)
+
+        if login_status == True:
+            return login_status, jwt_token, result["role"]
+        
+        elif login_status == False:
+            return login_status, None, None
+
