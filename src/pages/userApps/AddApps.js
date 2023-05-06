@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     display: "flex",
     // paddingLeft: '58px'
-    marginBottom: 10
+    marginBottom: 10,
   },
   cardContent: {
     width: 600,
@@ -60,16 +60,14 @@ export default function AddApps() {
   const getApps = useCallback(async () => {
     const allApps = await Request("get", "/requestAppDisplay");
     const myApps = await Request("get", "/myApps");
-    let result = [];
-    for (let app of allApps.data) {
-      for (let myApp of myApps.data.apps) {
-        if (app.id != myApp.id) {
-          result.push(app);
-        }
-      }
+    if (myApps.data.apps.length == 0) {
+      setApps(allApps.data);
+    } else {
+      const apps = allApps.data.filter(
+        (o) => !myApps.data.apps.some((i) => i.id === o.id)
+      );
+      setApps(apps);
     }
-    console.log(result);
-    setApps(result);
   }, []);
 
   useEffect(() => {
