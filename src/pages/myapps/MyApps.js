@@ -34,7 +34,7 @@ export default function MyApps() {
   const [apps, setApps] = useState([]);
 
   const getMyApps = useCallback(async () => {
-    const resp = await Request("get", "/myApps");
+    const resp = await Request("get", "/requestAppDisplay");
     console.log(resp);
     setApps(resp.data);
   }, []);
@@ -73,7 +73,7 @@ export default function MyApps() {
                     className={classes.typo}
                     gutterBottom
                   >
-                    {app}
+                    {app.appname}
                   </Typography>
                 </CardContent>
               </CardActionArea>

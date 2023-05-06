@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/Card";
 import { Button, CardMedia } from "@material-ui/core";
@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/GitHub-Mark.png";
 import AddAppModal from "./AddAppModal";
+import Request from "../../helpers/Request";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -51,6 +52,22 @@ export default function AddApps() {
 
   const [modal, setModal] = React.useState(false);
   const [modalLoading, setModalLoading] = React.useState(false);
+
+  const [apps, setApps] = React.useState([]);
+  const [allApps, setAllApps] = React.useState([]);
+
+
+  const getApps = useCallback(async () => {
+    // const allApps = await Request('get', '/requestAppDisplay');
+    // setAllApps(allApps.data);
+    const myApps = await Request("get", "/myApps");
+    console.log(myApps)
+    setApps(myApps.data);
+  }, []);
+
+  useEffect(() => {
+    getApps();
+  }, [getApps]);
 
   const handleOpenModal = () => {
     setModalLoading(true);
