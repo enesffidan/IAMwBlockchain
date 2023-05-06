@@ -7,6 +7,8 @@ from user.display import *
 from login import *
 from database.DB import *
 
+from ThirdApps.github import Github
+
 from flask_cors import CORS
 
 
@@ -74,10 +76,35 @@ def userAddApp():
     if data["haveAnAccount"] == True:
         app_data = DB_SERVICE.DB_APP.search_app_by_id(data["appId"])
         DB_SERVICE.DB_USER.add_app_to_user(username, app_data["appname"])
-        
-        #TODO: Github creddentiallari ayri bir tabloya eklenecek
 
-    return True
+        DB_SERVICE.DB_3RD.add_credentials(username, data["userName"], data["password"], app_data["appname"])
+        
+    return {"status":True}
+
+
+
+@app.route("/appInstance", methods=['GET'])
+def github():
+    github = Github()
+    # Get the token from the request headers
+    token = request.headers.get("Authorization")
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
+
+    verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
+    username = verify_token_data["username"]
+
+    app_list = DB_SERVICE.DB_3RD.search_apps_by_username_and_appname(username, "Github")
+
+    if app_list != None:
+        github_data = app_list[0]
+
+    
+
+    github.login("https://www.github.com/login/", "login_field", github_data["appusername"], "password", github_data["password"], "commit")
+
+
+    return {"status": True}
 
 
 

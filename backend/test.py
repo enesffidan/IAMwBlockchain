@@ -1,6 +1,6 @@
 from auth import Auth
-from login import Login
-from database.DB import *
+#from login import Login
+from database.DB import DBService
 
 
 
@@ -12,8 +12,10 @@ db_service = DBService()
 
 
 
-login_service = Login()
 auth_service = Auth()
+
+
+#db_service.DB_3RD.create_table()
 
 #db_service.DB_USER.delete_user("enes")
 
@@ -22,7 +24,7 @@ auth_service = Auth()
 
 #USER EKLENDI (HASH PASSWORD)
 #db_service.DB_USER.add_user(username="admin", password=auth_service.hash_password("admin123"), apps=["Github", "Linkedin"], role="ADMIN")
-db_service.DB_USER.add_user(username="enes", password=auth_service.hash_password("123"), apps=["Github", "Linkedin"], role="USER")
+#db_service.DB_USER.add_user(username="enes", password=auth_service.hash_password("123"), apps=["Github", "Linkedin"], role="USER")
 #db_service.DB_USER.add_user(username="onur", password=auth_service.hash_password("123"), apps=[], role="USER")
 
 
