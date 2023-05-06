@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import pickle
 
 class DB_USER():
 
@@ -44,6 +45,37 @@ class DB_USER():
         # commit changes and close connection
         conn.commit()
         conn.close()
+
+    def add_app_to_user(username, app):
+        # Connect to the database
+        conn = sqlite3.connect('IAM.db')
+        c = conn.cursor()
+
+        # Execute SQL query to fetch the user's current apps
+        c.execute("SELECT apps FROM users WHERE username=?", (username,))
+        result = c.fetchone()
+        
+        if result is None:
+            # User not found
+            conn.close()
+            return False
+        
+        current_apps = pickle.loads(result[0]) if result[0] else []
+
+        # Add the new app to the current apps list
+        current_apps.append(app)
+
+        # Serialize the updated apps list into binary data
+        serialized_apps = pickle.dumps(current_apps)
+
+        # Execute SQL query to update the user's apps
+        c.execute("UPDATE users SET apps=? WHERE username=?", (serialized_apps, username))
+
+        # Commit changes and close connection
+        conn.commit()
+        conn.close()
+
+        return True
 
 
     def fetch_all_users(self):

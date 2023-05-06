@@ -47,12 +47,34 @@ def userRequestApp():
     # Extract the token value
     jwt_token = token.split("Bearer ")[1]
 
+    verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
+    username = verify_token_data["username"]
+
     data = request.get_json() #Have account
 
     if data == True: # Kullanıcının kendi accountu var
         pass
     elif data == False: #Kullanıcın kendi accountu yok olusturulacak 3rd party app için
         pass
+
+@app.route("/addAppUser", methods=['POST'])
+def userAddApp():
+    # Get the token from the request headers
+    token = request.headers.get("Authorization")
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
+
+    verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
+    username = verify_token_data["username"]
+
+    #Data from frontend: HaveAccount, AppID, usernameForApp, passwordForApp
+    data = request.get_json()
+
+    print(data)
+
+
+
+
 
 
 
@@ -96,16 +118,17 @@ def myApps():
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
 
-    user_data = DB_SERVICE.DB_USER.find_user(username)
-    user_apps = user_data["apps"]
-
-    result = []
-    for app in user_apps:
-        print(app)
-        app_data = DB_SERVICE.DB_APP.search_app_by_name(app)
-        result.append(app_data)
+    user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
     
-    return result
+
+    result_apps = []
+    for appName in user_apps:
+        app_json = DB_SERVICE.DB_APP.search_app_by_name(appName)
+        if app_json != None:
+            result_apps.append(app_json)
+
+    return result_apps
+
 
 
 @app.route("/appCatalog", methods=['GET'])
