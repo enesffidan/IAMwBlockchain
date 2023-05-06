@@ -1,5 +1,6 @@
 import jwt
 import hashlib
+import bcrypt
 
 class Auth():
 
@@ -11,16 +12,28 @@ class Auth():
         jwt_token = jwt.encode(payload, "secret", algorithm="HS256")
         return jwt_token
     
-    def verify_token(self, jwt_token):
+    def verify_token(self, jwt_token, username):
         try:
             payload = jwt.decode(jwt_token, "secret", algorithms=["HS256"])
-            return payload
+            if payload["username"] == username:
+                return True
+            else:
+                return False
         except jwt.InvalidTokenError:
-            return None
+            return False
         
     def hash_password(self, password):
-        # Function to hash a password
-        # Convert the password to bytes and hash it using SHA-256
-        hash_obj = hashlib.sha256(password.encode('utf-8'))
-        # Return the hexadecimal representation of the hash
-        return hash_obj.hexdigest()
+        # Generate a salt
+        salt = bcrypt.gensalt()
+
+        # Hash the password with the salt
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        return hashed_password
+
+
+    def validate_password(self, password_attempt, hashed_password):
+        # Validate the password attempt against the hashed password
+        if bcrypt.checkpw(password_attempt.encode('utf-8'), hashed_password):
+            return True
+        else:
+            return False

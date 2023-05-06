@@ -1,17 +1,32 @@
 from DB import DBService
 
+import sys
+sys.path.append('../')
+
+from auth import Auth
 
 db_service = DBService()
+auth_service = Auth()
 
-#db_service.create_users_table()
-#db_service.add_user("enes", "123", "Github", "User")
-#db_service.add_user("admin", "admin", "Github, Facebook", "Admin")
+#USER TABLOSU OLUSTURULDU
+#db_service.DB_USER.create_users_table()
 
-#db_service.add_user("admin1", "admin", "Github, Facebook", "ROLE_SİSTEM_ADMİNİ")
-db_service.add_user("baran", "123", "Github, Facebook", "ROLE_USER")
+#USER EKLENDI (HASH PASSWORD)
+#db_service.DB_USER.add_user(username="admin", password=auth_service.hash_password("admin123"), apps=["Github", "Linkedin"], role="ADMIN")
 
-#result = db_service.find_user("enes", "123")
-#print(result)
+
+#APP CATALOG TABLE OLUSTURULUP 3 ENTRY EKLENDI
+#db_service.DB_APP.create_appCatalog_table()
+#db_service.DB_APP.add_app_to_catalog("Github")
+#db_service.DB_APP.add_app_to_catalog("LinkedIn")
+#db_service.DB_APP.add_app_to_catalog("Facebook")
+
+print(db_service.DB_USER.find_user("admin"))
+
+
+#print(db_service.DB_APP.fetch_all_apps())
+
+
 
 
 

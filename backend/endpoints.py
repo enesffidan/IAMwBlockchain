@@ -11,6 +11,8 @@ from flask_cors import CORS
 
 
 AUTH_SERVICE = Auth()
+DB_SERVICE = DBService()
+
 
 
 app = Flask(__name__)
@@ -55,9 +57,9 @@ def myApps():
     #Verify JWT Token
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
-
-    #TODO: Kullanıcının admin ya da düz user oldugunu belirleyeceğimiz yapı eklenecek (DB'den bu veri çekilebilir)
-    #TODO: 
+    
+    user_data = DB_SERVICE.DB_USER.find_user(username)
+    return user_data["apps"]
 
 
     user_myapps_list = display_myapps(username)
@@ -70,6 +72,8 @@ def applicationCatalog():
     jwt_token = request.get_json()
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
+    
+
 
 
     #TODO: user'ın sahip olduğu app'ler tüm katalog listesinden exclude edilerek return edilmeli
