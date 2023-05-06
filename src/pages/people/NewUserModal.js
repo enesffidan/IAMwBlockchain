@@ -51,10 +51,9 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
   const user = SessionHelper.getUser();
   const token = user.token;
   const [loading, setLoading] = React.useState(false);
-  const [value, setValue] = React.useState("female");
   const [newUserProps, setNewUserProps] = React.useState({
-    firstName: null,
-    lastName: null,
+    // firstName: null,
+    // lastName: null,
     userName: null,
     email: null,
     password: null,
@@ -70,8 +69,8 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
   const onButtonClick = () => {
     handleRequest(
       newUserProps.username,
-      newUserProps.firstName,
-      newUserProps.lastName,
+      // newUserProps.firstName,
+      // newUserProps.lastName,
       newUserProps.password,
       newUserProps.email,
       token
@@ -80,8 +79,8 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
 
   async function handleRequest(
     username,
-    firstName,
-    lastName,
+    // firstName,
+    // lastName,
     password,
     email,
     token
@@ -89,8 +88,8 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
     setLoading(true);
     const resp = await Request("post", "/addPerson", {
       username: username,
-      firstName: firstName,
-      lastName: lastName,
+      // firstName: firstName,
+      // lastName: lastName,
       password: password,
       email: email,
       token: token,
@@ -125,7 +124,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
         >
           Add Person
         </Typography>
-        <TextArea //FIRST NAME
+        {/* <TextArea //FIRST NAME
           label={"First Name"}
           value={newUserProps.firstName}
           onChangeFunc={(value) => {
@@ -140,7 +139,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
             setNewUserProps({ ...newUserProps, lastName: value.target.value });
           }}
           style={classes.textField}
-        />
+        /> */}
         <TextArea //User NAME
           label={"User Name"}
           value={newUserProps.userName}

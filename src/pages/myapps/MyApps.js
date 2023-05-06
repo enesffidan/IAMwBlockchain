@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/Card";
@@ -31,6 +31,18 @@ const useStyles = makeStyles((theme) => ({
 export default function MyApps() {
   const classes = useStyles();
 
+  const [apps, setApps] = useState([]);
+
+  const getMyApps = useCallback(async () => {
+    const resp = await Request("get", "/myApps");
+    console.log(resp);
+    setApps(resp.data);
+  }, []);
+
+  useEffect(() => {
+    getMyApps();
+  }, []);
+
   async function handleOnClick() {
     const resp = await Request("get", "/appInstance", null);
     console.log(resp);
@@ -43,29 +55,34 @@ export default function MyApps() {
       className={classes.gridContainer}
       justifyContent="center"
     >
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.root} variant="outlined">
-          <CardActionArea onClick={handleOnClick}>
-            <CardMedia
-              component="img"
-              height="150"
-              image={logo}
-              alt="github"
-              className={classes.cardMedia}
-            />
-            <CardContent>
-              <Typography
-                color="textPrimary"
-                className={classes.typo}
-                gutterBottom
-              >
-                Github
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      {apps.map((app) => {
+        return (
+          <Grid item xs={12} sm={6} md={4}>
+            <Card className={classes.root} variant="outlined">
+              <CardActionArea onClick={handleOnClick}>
+                <CardMedia
+                  component="img"
+                  height="150"
+                  image={logo}
+                  alt="github"
+                  className={classes.cardMedia}
+                />
+                <CardContent>
+                  <Typography
+                    color="textPrimary"
+                    className={classes.typo}
+                    gutterBottom
+                  >
+                    {app}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        );
+      })}
+
+      {/* <Grid item xs={12} sm={6} md={4}>
         <Card className={classes.root} variant="outlined">
           <CardMedia
             component="img"
@@ -84,7 +101,7 @@ export default function MyApps() {
             </Typography>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

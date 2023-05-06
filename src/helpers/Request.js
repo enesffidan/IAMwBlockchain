@@ -1,4 +1,5 @@
 import axios from "axios";
+import SessionHelper from "./SessionHelper";
 
 export const url = "http://127.0.0.1:8080"; //TEST
 
@@ -13,17 +14,23 @@ export const url = "http://127.0.0.1:8080"; //TEST
  */
 const Request = async (action, urlExtension, body, params, headers) => {
   // check if user is logged in and session time is expired
-//   if (SessionHelper.getUser()) {
-//     if (isSessionTimeExpired()) {
-//       window.location.href = "/signin";
-//       SessionHelper.deleteUser(); // logout
-//       return;
-//     } else {
-//       SessionHelper.setLoginTime(); // set last request time
-//     }
-//   }
+  //   if (SessionHelper.getUser()) {
+  //     if (isSessionTimeExpired()) {
+  //       window.location.href = "/signin";
+  //       SessionHelper.deleteUser(); // logout
+  //       return;
+  //     } else {
+  //       SessionHelper.setLoginTime(); // set last request time
+  //     }
+  //   }
 
   let header = null;
+  if (SessionHelper.getUser()) {
+    header = {
+      ...header,
+      Authorization: "Bearer " + SessionHelper.getUser().token,
+    };
+  }
   if (headers) {
     header = { ...header, ...headers };
   }
@@ -41,10 +48,10 @@ const Request = async (action, urlExtension, body, params, headers) => {
     })
     .catch((error) => {
       fetch = error.response;
-    //   if (fetch.status === 401) {
-    //     window.location = "/signin";
-    //     // SessionHelper.deleteUser();
-    //   }
+      //   if (fetch.status === 401) {
+      //     window.location = "/signin";
+      //     // SessionHelper.deleteUser();
+      //   }
     });
   return fetch;
 };

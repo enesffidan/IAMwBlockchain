@@ -96,6 +96,7 @@ export default function SignIn({ update, setUpdate }) {
       SessionHelper.setUser({
         firstName: username,
         lastName: "", // burası baska biyerden düzeltilcek gibi
+        username: username,
         roles: [resp.data.role],
         token: resp.data.token,
       });
