@@ -11,6 +11,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 import { TextArea } from "../../components/Fields/TextField";
+import Request from "../../helpers/Request";
 
 const useStyles = makeStyles((theme) => ({
   cancelButton: {
@@ -47,7 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddAppModal({ modal, setModal, modalLoading }) {
+export default function AddAppModal({
+  modal,
+  setModal,
+  modalLoading,
+  selectedApp,
+}) {
   const classes = useStyles();
 
   const [loading, setLoading] = React.useState(false);
@@ -73,6 +79,15 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
 
   const handleRequest = async () => {
     setLoading(true);
+    if (haveAnAccount) {
+      const props = {
+        ...accountProps,
+        haveAnAccount: true,
+        appId: selectedApp
+      }
+      const resp = await Request('post', '/addAppUser', props);
+      console.log(resp);
+    }
     handleCloseModal();
     setLoading(false);
   };

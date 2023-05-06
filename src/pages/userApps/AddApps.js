@@ -55,11 +55,10 @@ export default function AddApps() {
   const [modalLoading, setModalLoading] = React.useState(false);
 
   const [apps, setApps] = React.useState([]);
-  const [allApps, setAllApps] = React.useState([]);
+  const [selectedApp, setSelectedApp] = React.useState(null);
 
   const getApps = useCallback(async () => {
     const allApps = await Request("get", "/requestAppDisplay");
-    setAllApps(allApps.data);
     const myApps = await Request("get", "/myApps");
     let result = [];
     for (let app of allApps.data) {
@@ -77,9 +76,10 @@ export default function AddApps() {
     getApps();
   }, [getApps]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (app) => {
     setModalLoading(true);
     setModal(true);
+    setSelectedApp(app.id);
     setModalLoading(false);
   };
 
@@ -89,6 +89,7 @@ export default function AddApps() {
         modal={modal}
         modalLoading={modalLoading}
         setModal={setModal}
+        selectedApp={selectedApp}
       />
       <Typography color="textPrimary" gutterBottom className={classes.header}>
         Application Catalogue
@@ -114,7 +115,7 @@ export default function AddApps() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleOpenModal}
+                onClick={() => handleOpenModal(app)}
               >
                 Add
               </Button>
