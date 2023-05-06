@@ -1,9 +1,6 @@
 import sqlite3
 import json
 
-
-
-
 class DB_USER():
 
 

@@ -31,7 +31,7 @@ class DB_APP():
         c = conn.cursor()
         
         # execute query to insert a new row with the provided appname
-        c.execute("INSERT INTO appCatalog (appname) VALUES (?)", (appname,))
+        c.execute("INSERT INTO apps (appname) VALUES (?)", (appname,))
         
         # commit changes and close connection
         conn.commit()
@@ -45,7 +45,7 @@ class DB_APP():
         c = conn.cursor()
 
         # execute a SELECT query to fetch all apps
-        c.execute("SELECT * FROM appCatalog")
+        c.execute("SELECT * FROM apps")
 
         # fetch all rows from the result set
         rows = c.fetchall()
