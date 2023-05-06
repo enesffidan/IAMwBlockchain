@@ -27,7 +27,7 @@ def index():
 @app.route("/login", methods=['POST'])
 def login():
     data = request.get_json()
-    print(type(data))
+
     username = data["username"]
     password = data["password"]
 
@@ -37,7 +37,7 @@ def login():
     response_data = {"login_status":login_status,
                      "token": jwt_token,
                      "role": user_role}
-    print(response_data)
+
     return response_data
 
 @app.route("/requestApp", methods=['POST'])
@@ -69,8 +69,19 @@ def userAddApp():
 
     #Data from frontend: HaveAccount, AppID, usernameForApp, passwordForApp
     data = request.get_json()
-
     print(data)
+
+    if data["haveAnAccount"] == True:
+        app_data = DB_SERVICE.DB_APP.search_app_by_id(data["appId"])
+        user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
+        user_apps.append(app_data["appname"])
+        DB_SERVICE.DB_USER.update_user_apps(username, user_apps)
+        
+        #TODO: Github creddentiallari ayri bir tabloya eklenecek
+
+    return True
+
+
 
 
 
@@ -95,14 +106,17 @@ def userRequestAppDisplay():
 
 
     app_catalog_list = DB_SERVICE.DB_APP.fetch_all_apps()
-
+    user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
     
-    user_apps_result = []
-    for app in user_apps:
-        app_data = DB_SERVICE.DB_APP.search_app_by_name(app)
-        user_apps_result.append(app_data)
 
-    return app_catalog_list, user_apps_result
+    result_apps = []
+    for appName in user_apps:
+        app_json = DB_SERVICE.DB_APP.search_app_by_name(appName)
+        if app_json != None:
+            result_apps.append(app_json)
+
+
+    return app_catalog_list
 
 
 
@@ -127,7 +141,7 @@ def myApps():
         if app_json != None:
             result_apps.append(app_json)
 
-    return result_apps
+    return {"apps": result_apps}
 
 
 

@@ -86,3 +86,22 @@ class DB_APP():
             return app_data
         else:
             return None
+        
+    def search_app_by_id(self, app_id):
+        # Connect to the database
+        conn = sqlite3.connect('IAM.db')
+        c = conn.cursor()
+
+        # Execute SQL query to find the app by id
+        c.execute("SELECT * FROM apps WHERE id=?", (app_id,))
+        result = c.fetchone()
+
+        # Close connection
+        conn.close()
+
+        # If app found, return the app data as a dictionary
+        if result:
+            app_data = {'id': result[0], 'appname': result[1]}
+            return app_data
+        else:
+            return None
