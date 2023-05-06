@@ -10,6 +10,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
+import { TextArea } from "../../components/Fields/TextField";
 
 const useStyles = makeStyles((theme) => ({
   cancelButton: {
@@ -51,9 +52,12 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
 
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState("female");
+  const [haveAnAccount, setHaveAnAccount] = React.useState(true);
+  const [accountProps, setAccountProps] = React.useState({});
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    setHaveAnAccount(!haveAnAccount);
   };
 
   const init = useCallback(() => {
@@ -110,6 +114,32 @@ export default function AddAppModal({ modal, setModal, modalLoading }) {
             label="Let admin decide my username and password"
           />
         </RadioGroup>
+        {haveAnAccount && (
+          <TextArea //User NAME
+            label={"User Name"}
+            value={accountProps.userName}
+            onChangeFunc={(value) => {
+              setAccountProps({
+                ...accountProps,
+                userName: value.target.value,
+              });
+            }}
+            style={classes.textField}
+          />
+        )}
+        {haveAnAccount && (
+          <TextArea //PASSWORD
+            label={"Password"}
+            value={accountProps.password}
+            onChangeFunc={(value) => {
+              setAccountProps({
+                ...accountProps,
+                password: value.target.value,
+              });
+            }}
+            style={classes.textField}
+          />
+        )}
         <div style={{ paddingBottom: 20, textAlign: "center" }}>
           {loading ? (
             <CircularProgress color="secondary" />

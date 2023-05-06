@@ -34,9 +34,9 @@ export default function MyApps() {
   const [apps, setApps] = useState([]);
 
   const getMyApps = useCallback(async () => {
-    const resp = await Request("get", "/requestAppDisplay");
+    const resp = await Request("get", "/myApps");
     console.log(resp);
-    setApps(resp.data);
+    setApps(resp.data.apps);
   }, []);
 
   useEffect(() => {

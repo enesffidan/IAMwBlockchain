@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     display: "flex",
     // paddingLeft: '58px'
+    marginBottom: 10
   },
   cardContent: {
     width: 600,
@@ -56,13 +57,20 @@ export default function AddApps() {
   const [apps, setApps] = React.useState([]);
   const [allApps, setAllApps] = React.useState([]);
 
-
   const getApps = useCallback(async () => {
-    // const allApps = await Request('get', '/requestAppDisplay');
-    // setAllApps(allApps.data);
+    const allApps = await Request("get", "/requestAppDisplay");
+    setAllApps(allApps.data);
     const myApps = await Request("get", "/myApps");
-    console.log(myApps)
-    setApps(myApps.data);
+    let result = [];
+    for (let app of allApps.data) {
+      for (let myApp of myApps.data.apps) {
+        if (app.id != myApp.id) {
+          result.push(app);
+        }
+      }
+    }
+    console.log(result);
+    setApps(result);
   }, []);
 
   useEffect(() => {
@@ -85,27 +93,35 @@ export default function AddApps() {
       <Typography color="textPrimary" gutterBottom className={classes.header}>
         Application Catalogue
       </Typography>
-      <Card className={classes.card} variant="outlined">
-        <CardMedia
-          component="img"
-          height="150"
-          image={logo}
-          alt="github"
-          className={classes.cardMedia}
-        />
-        <CardContent className={classes.cardContent}>
-          <Typography
-            color="textPrimary"
-            gutterBottom
-            className={classes.cardTypo}
-          >
-            Github
-          </Typography>
-          <Button variant="contained" color="primary" onClick={handleOpenModal}>
-            Add
-          </Button>
-        </CardContent>
-      </Card>
+      {apps.map((app) => {
+        return (
+          <Card className={classes.card} variant="outlined">
+            <CardMedia
+              component="img"
+              height="150"
+              image={logo}
+              alt="github"
+              className={classes.cardMedia}
+            />
+            <CardContent className={classes.cardContent}>
+              <Typography
+                color="textPrimary"
+                gutterBottom
+                className={classes.cardTypo}
+              >
+                {app.appname}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleOpenModal}
+              >
+                Add
+              </Button>
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 }
