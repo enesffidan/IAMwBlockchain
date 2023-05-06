@@ -96,7 +96,8 @@ def myApps():
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
 
-    user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
+    user_data = DB_SERVICE.DB_USER.find_user(username)
+    user_apps = user_data["apps"]
 
     result = []
     for app in user_apps:

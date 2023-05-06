@@ -31,6 +31,9 @@ auth_service = Auth()
 #db_service.DB_APP.add_app_to_catalog("LinkedIn")
 #db_service.DB_APP.add_app_to_catalog("Facebook")
 
+
+#print(type(db_service.DB_USER.get_user_apps("enes")))
+
 #print(db_service.DB_USER.find_user("enes"))
 
 

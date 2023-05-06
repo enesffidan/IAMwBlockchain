@@ -20,7 +20,7 @@ class DB_USER():
                     (id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT,
                     password TEXT,
-                    apps TEXT,
+                    apps BLOB,
                     role TEXT)''')
         
         # commit changes and close connection
