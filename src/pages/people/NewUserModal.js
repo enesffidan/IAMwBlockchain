@@ -6,8 +6,10 @@ import {
   FormControl,
   Typography,
 } from "@material-ui/core";
+import Request from "../../helpers/Request";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 import { TextArea } from "../../components/Fields/TextField";
+import SessionHelper from "../../helpers/SessionHelper";
 
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -44,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
   },
 }));
-
 export default function NewUserModal({ modal, setModal, modalLoading }) {
-  const classes = useStyles();
-
+  const classes  = useStyles();
+  const user = SessionHelper.getUser();
+  const token = user.token;
   const [loading, setLoading] = React.useState(false);
   const [value, setValue] = React.useState("female");
   const [newUserProps, setNewUserProps] = React.useState({
@@ -66,14 +68,37 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
   }, [init]);
 
   const onButtonClick = () => {
-    handleRequest();
+    handleRequest(
+      newUserProps.username,
+      newUserProps.firstName,
+      newUserProps.lastName,
+      newUserProps.password,
+      newUserProps.email,
+      token
+    );
   };
 
-  const handleRequest = async () => {
+  async function handleRequest(
+    username,
+    firstName,
+    lastName,
+    password,
+    email,
+    token
+  ) {
     setLoading(true);
+    const resp = await Request("post", "/addPerson", {
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      password: password,
+      email: email,
+      token: token,
+    });
+    console.log(resp);
     handleCloseModal();
     setLoading(false);
-  };
+  }
 
   const handleCloseModal = (event, reason) => {
     if (reason && reason == "backdropClick") return;
@@ -87,7 +112,17 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
       modalLoading={modalLoading}
     >
       <FormControl required autoComplete="off" className={classes.formControl}>
-        <Typography color="textPrimary" gutterBottom className={classes.typo}>
+        <Typography
+          color="textPrimary"
+          fontWeight={"600"}
+          gutterBottom
+          sx={{
+            fontSize: "24",
+            display: "flex",
+            alignItems: "left",
+            paddingBottom: 5,
+          }}
+        >
           Add Person
         </Typography>
         <TextArea //FIRST NAME
@@ -141,7 +176,8 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
                 variant="outlined"
                 color="primary"
                 onClick={() => handleCloseModal()}
-                className={classes.cancelButton}
+                className={classes.submit}
+                sx={{ backgroundColor: "white", maxWidth: 200 }}
               >
                 Cancel
               </Button>
@@ -151,7 +187,8 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
                 variant="contained"
                 color="primary"
                 onClick={() => onButtonClick()}
-                className={classes.saveButton}
+                className={classes.submit}
+                sx={{ color: "white", maxWidth: 200 }}
               >
                 Add Person
               </Button>

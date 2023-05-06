@@ -43,7 +43,7 @@ export default function UserDetail() {
 
   const tableRef = React.useRef();
   const [rows, setRows] = React.useState([
-    { app: "Facebook", username: "asdasd", id: "1" },
+    { app: "Facebook", username: "test", id: "1" },
   ]);
   const [numOfEntries, setNumOfEntries] = React.useState(0);
 

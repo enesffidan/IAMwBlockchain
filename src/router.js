@@ -11,7 +11,7 @@ import LanguageHelper from "./helpers/LanguageHelper";
 import Navbar from "./components/Navbar/navbar";
 import MyAppsPage from "./pages/myapps/MyAppsPage";
 import SignIn from "./pages/signin/SignIn";
-import DashboardPage from "./pages/dashboard/DashboardPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 // import SignUp from "./pages/SignUp/SignUp";
 // import Activation from "./pages/AccountActivated/AccountActivated";
 // import Forgot from "./pages/ForgotPassword/ForgotPassword";

@@ -9,24 +9,24 @@ const user = SessionHelper.getUser();
 // })
 
 authorizationLookup.dashboard = {
-"ROLE_SİSTEM_ADMİNİ":                       {view: true, create: true, delete: true, edit: true},
-"ROLE_USER":                                {view: false, create: false, delete: false, edit: false},
+"ADMIN":                       {view: true, create: true, delete: true, edit: true},
+"USER":                                {view: false, create: false, delete: false, edit: false},
 }
 authorizationLookup.myApps = {
-"ROLE_SİSTEM_ADMİNİ":                       {view: false, create: false, delete: false, edit: false},
-"ROLE_USER":                                {view: true, create: true, delete: true, edit: true},
+"ADMIN":                       {view: false, create: false, delete: false, edit: false},
+"USER":                                {view: true, create: true, delete: true, edit: true},
 }
 authorizationLookup.addApps = {
-"ROLE_SİSTEM_ADMİNİ":                       {view: false, create: false, delete: false, edit: false},
-"ROLE_USER":                                {view: true, create: true, delete: true, edit: true},
+"ADMIN":                       {view: false, create: false, delete: false, edit: false},
+"USER":                                {view: true, create: true, delete: true, edit: true},
 }  
 authorizationLookup.people = {
-"ROLE_SİSTEM_ADMİNİ":                       {view: true, create: true, delete: true, edit: true},
-"ROLE_USER":                                {view: false, create: false, delete: false, edit: false},
+"ADMIN":                       {view: true, create: true, delete: true, edit: true},
+"USER":                                {view: false, create: false, delete: false, edit: false},
 }
 authorizationLookup.apps = {
-"ROLE_SİSTEM_ADMİNİ":                       {view: true, create: true, delete: true, edit: true},
-"ROLE_USER":                                {view: false, create: false, delete: false, edit: false},
+"ADMIN":                       {view: true, create: true, delete: true, edit: true},
+"USER":                                {view: false, create: false, delete: false, edit: false},
 }
     
 
