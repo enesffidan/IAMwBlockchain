@@ -73,9 +73,7 @@ def userAddApp():
 
     if data["haveAnAccount"] == True:
         app_data = DB_SERVICE.DB_APP.search_app_by_id(data["appId"])
-        user_apps = DB_SERVICE.DB_USER.get_user_apps(username)
-        user_apps.append(app_data["appname"])
-        DB_SERVICE.DB_USER.update_user_apps(username, user_apps)
+        DB_SERVICE.DB_USER.add_app_to_user(username, app_data["appname"])
         
         #TODO: Github creddentiallari ayri bir tabloya eklenecek
 
