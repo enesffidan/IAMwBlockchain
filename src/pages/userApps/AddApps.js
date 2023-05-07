@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     objectFit: "contain",
+    padding: 5,
     width: 101,
   },
   cardTypo: {
