@@ -58,9 +58,10 @@ export default function People() {
   const getUsers = useCallback(async () => {
     const users = await Request("get", "/fetchUsers");
     setRows(users.data);
-    console.log("asd", users);
   }, []);
-  useEffect(() => getUsers(), []);
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
   const handleOpenModal = () => {
     setModalLoading(true);
     setModal(true);

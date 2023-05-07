@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "left",
     paddingBottom: 5,
   },
+  textField: {
+    marginTop: 5,
+    whiteSpace: "pre-wrap",
+  },
 }));
 
 export default function AddAppModal({

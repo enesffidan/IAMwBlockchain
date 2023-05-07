@@ -5,6 +5,8 @@ import { Button, CardMedia } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/GitHub-Mark.png";
+import fbLogo from "../../assets/Facebook_Logo_(2019).png";
+import linkedinLogo from "../../assets/LinkedIn_logo.png";
 import AddAppModal from "./AddAppModal";
 import Request from "../../helpers/Request";
 
@@ -98,7 +100,13 @@ export default function AddApps() {
             <CardMedia
               component="img"
               height="150"
-              image={logo}
+              image={
+                app.appname === "Github"
+                  ? logo
+                  : app.appname === "Facebook"
+                  ? fbLogo
+                  : linkedinLogo
+              }
               alt="github"
               className={classes.cardMedia}
             />
