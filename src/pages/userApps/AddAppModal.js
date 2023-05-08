@@ -87,10 +87,18 @@ export default function AddAppModal({
       const props = {
         ...accountProps,
         haveAnAccount: true,
-        appId: selectedApp
-      }
-      const resp = await Request('post', '/addAppUser', props);
+        appId: selectedApp,
+      };
+      const resp = await Request("post", "/addAppUser", props);
       console.log(resp);
+    } else {
+      const props = {
+        ...accountProps,
+        haveAnAccount: false,
+        appId: selectedApp,
+      };
+      const resp = await Request("post", "/addAppUser", props);
+      console.log('asdas',resp);
     }
     handleCloseModal();
     setLoading(false);

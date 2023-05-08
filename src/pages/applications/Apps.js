@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import PersonAddAlt1Icon from "@material-ui/icons/PersonAdd";
@@ -6,6 +6,7 @@ import IconTooltipButton from "../../components/Buttons/IconTooltipButton";
 import Table from "../../components/Table/Table";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import Request from "../../helpers/Request";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +37,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Apps() {
   const classes = useStyles();
   const history = useHistory();
+  const getApps = useCallback(async () => {
+    const resp = await Request("get", "/requestAppDisplay");
+    console.log('asdas',resp);
+    setRows(resp.data);
+  }, []);
+
+  useEffect(() => {
+    getApps();
+  }, []);
+
   const columns = [
     {
       title: "Application",
-      field: "name",
+      field: "appname",
+    },
+    {
+      title: "ID",
+      field: "id",
     },
     {
       title: "Configuration",
@@ -60,7 +75,7 @@ export default function Apps() {
   ];
 
   const tableRef = React.useRef();
-  const [rows, setRows] = React.useState([{ name: "Facebook", id: "1" }]);
+  const [rows, setRows] = React.useState([]);
   const [numOfEntries, setNumOfEntries] = React.useState(0);
 
   return (
