@@ -5,6 +5,7 @@ import {
   CircularProgress,
   FormControl,
   Typography,
+  TextField,
 } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -155,17 +156,32 @@ export default function AddAppModal({
           />
         )}
         {haveAnAccount && (
-          <TextArea //PASSWORD
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             label={"Password"}
-            value={accountProps.password}
-            onChangeFunc={(value) => {
+            type="password"
+            onChange={(value) => {
               setAccountProps({
                 ...accountProps,
                 password: value.target.value,
               });
             }}
-            style={classes.textField}
+            className={classes.textField}
           />
+          // <TextArea //PASSWORD
+          //   label={"Password"}
+          //   value={accountProps.password}
+          //   onChangeFunc={(value) => {
+          //     setAccountProps({
+          //       ...accountProps,
+          //       password: value.target.value,
+          //     });
+          //   }}
+          //   style={classes.textField}
+          // />
         )}
         <div style={{ paddingBottom: 20, textAlign: "center" }}>
           {loading ? (
