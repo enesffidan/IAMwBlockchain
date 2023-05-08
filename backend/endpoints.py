@@ -186,10 +186,16 @@ def applicationCatalog():
 def addPerson():
     data = request.get_json()
 
-    token = data["token"]
-    payload = AUTH_SERVICE.verify_token(token)
+    token = request.headers.get("Authorization")
 
-    if payload["username"] == "admin1":
+    # Extract the token value
+    jwt_token = token.split("Bearer ")[1]
+
+    #Verify JWT Token
+    verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
+    username = verify_token_data["username"]
+
+    if username == "admin":
 
         password_hash = AUTH_SERVICE.hash_password(data["password"])
         # user = {"username": data["username"],
@@ -197,21 +203,55 @@ def addPerson():
         #         "apps": "",
         #         "role": "ROLE_USER"}
 
-        DB_SERVICE.add_user(data["firstName"], password_hash, "", "ROLE_USER")
+        #db_service.DB_USER.add_user(username="onur", password=auth_service.hash_password("123"), apps=[], role="USER")
+        DB_SERVICE.DB_USER.add_user(data["username"], password_hash, [], "USER")
 
         return {'status' : True}
     else:
         return {'status' : False}
     
 
+@app.route("/userAppsAdmin", methods=['POST'])
+def userAppsAdmin():
+    target_username = request.get_json()
+    target_username = target_username['username']
+    user_apps = DB_SERVICE.DB_USER.get_user_apps(target_username)
 
+    result_apps = []
+    for appName in user_apps:
+        app_json = DB_SERVICE.DB_APP.search_app_by_name(appName)
+        if app_json != None:
+            result_apps.append(app_json)
+
+    return {"apps": result_apps}
+
+@app.route("/adminAssignAppToUser", methods=['POST'])
+def adminAssignAppToUser():
+    data = request.get_json()
+    username = data["username"]
+    appID = data["appid"]
+
+
+    app_data = DB_SERVICE.DB_APP.search_app_by_id(appID)
+    DB_SERVICE.DB_USER.add_app_to_user(username, app_data["appname"])
+
+    return {"status": True}
 
 
 @app.route("/fetchUsers", methods=['GET'])
 def fetchAllUsers():
-    user_list = DB_SERVICE.fetch_all_users()
+    user_list = DB_SERVICE.DB_USER.fetch_all_users()
 
-    return user_list
+    # users = []
+
+    #     userWithoutPassword = {
+    #         'id': user['id'],
+    #         'username': user['username'],
+    #         'apps': user['apps']
+    #     }
+    #     users.append(userWithoutPassword)
+
+    return {'users' : user_list}
     
 
 @app.route("/admin/displayUsers", methods=['GET'])

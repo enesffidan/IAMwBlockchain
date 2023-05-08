@@ -1,6 +1,7 @@
 import sqlite3
 import json
 import pickle
+import ast
 
 class DB_USER():
 
@@ -114,8 +115,8 @@ class DB_USER():
         for user in users:
             user_json = {"id": user[0],
                          "username": user[1],
-                         "password": user[2],
-                         "apps": user[3],
+                        #  "password": user[2],
+                         "apps": ast.literal_eval(user[3]),
                          "role": user[4]}
             user_list.append(user_json)
         return user_list
