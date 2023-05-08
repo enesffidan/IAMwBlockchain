@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import Request from "../../helpers/Request";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -78,13 +79,27 @@ export default function AssignApps() {
   const classes = useStyles();
   const history = useHistory();
 
-  const [apps, setApps] = React.useState([{ name: "Facebook", id: "1" }]);
+  const [apps, setApps] = React.useState([]);
   const [selectedApps, setSelectedApps] = React.useState([]);
 
-  const [users, setUsers] = React.useState([
-    { name: "Onur Cihangir", id: "1" },
-  ]);
+  const [users, setUsers] = React.useState([]);
   const [selectedUsers, setSelectedUsers] = React.useState([]);
+
+  const getUsers = useCallback(async () => {
+    const users = await Request("get", "/fetchUsers");
+    setUsers(users.data.users);
+  }, []);
+
+  const getApps = useCallback(async () => {
+    const allApps = await Request("get", "/requestAppDisplay");
+    console.log(allApps)
+    setApps(allApps.data);
+  }, []);
+
+  useEffect(() => {
+    getApps();
+    getUsers();
+  }, [getApps, getUsers]);
 
   const handleAppSelect = (event) => {
     // create copy of array
@@ -156,7 +171,7 @@ export default function AssignApps() {
                           id={app.id}
                         />
                       }
-                      label={app.name}
+                      label={app.appname}
                     />
                     <Divider className={classes.divider} />
                   </>
@@ -187,7 +202,7 @@ export default function AssignApps() {
                       control={
                         <Checkbox onChange={handleUserSelect} id={user.id} />
                       }
-                      label={user.name}
+                      label={user.username}
                     />
                     <Divider className={classes.divider} />
                   </>

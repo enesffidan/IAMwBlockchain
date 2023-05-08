@@ -54,7 +54,7 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
   const [newUserProps, setNewUserProps] = React.useState({
     // firstName: null,
     // lastName: null,
-    userName: null,
+    username: null,
     email: null,
     password: null,
   });
@@ -142,9 +142,9 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
         /> */}
         <TextArea //User NAME
           label={"User Name"}
-          value={newUserProps.userName}
+          value={newUserProps.username}
           onChangeFunc={(value) => {
-            setNewUserProps({ ...newUserProps, userName: value.target.value });
+            setNewUserProps({ ...newUserProps, username: value.target.value });
           }}
           style={classes.textField}
         />

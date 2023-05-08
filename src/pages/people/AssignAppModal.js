@@ -1,22 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  Typography,
-} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import { Button, FormControl, Typography } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/Card";
 import { CardMedia } from "@material-ui/core";
-import { CardActionArea } from "@material-ui/core";
 import Request from "../../helpers/Request";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
 import fblogo from "../../assets/Facebook_Logo_(2019).png";
 import linkedinLogo from "../../assets/LinkedIn_logo.png";
 import logo from "../../assets/GitHub-Mark.png";
-import SessionHelper from "../../helpers/SessionHelper";
 
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -30,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    margin: 5
+    margin: 5,
   },
   cancelButton: {
     margin: "10px 1rem 0",
@@ -79,23 +70,30 @@ const useStyles = makeStyles((theme) => ({
     left: -120,
   },
 }));
-export default function AssignAppModal({ modal, setModal, modalLoading }) {
+export default function AssignAppModal({
+  modal,
+  setModal,
+  modalLoading,
+  username,
+}) {
   const classes = useStyles();
-  const user = SessionHelper.getUser();
-  const token = user.token;
   const [apps, setApps] = useState([]);
-  const [loading, setLoading] = React.useState(false);
-  const [newUserProps, setNewUserProps] = React.useState({
-    // firstName: null,
-    // lastName: null,
-    userName: null,
-    email: null,
-    password: null,
-  });
+  const [, setLoading] = React.useState(false);
+
   const getApps = useCallback(async () => {
-    const resp = await Request("get", "/requestAppDisplay");
-    console.log("asdas", resp);
-    setApps(resp.data);
+    const allApps = await Request("get", "/requestAppDisplay");
+    const userApps = await Request("post", "/userAppsAdmin", {
+      username: username,
+    });
+    if (userApps.data.apps.length == 0) {
+      setApps(allApps.data);
+    } else {
+      const apps = allApps.data.filter(
+        (o) => !userApps.data.apps.some((i) => i.id === o.id)
+      );
+      setApps(apps);
+    }
+    console.log("asdas", userApps);
   }, []);
 
   useEffect(() => {
@@ -109,40 +107,22 @@ export default function AssignAppModal({ modal, setModal, modalLoading }) {
     init();
   }, [init]);
 
-  const onButtonClick = () => {
-    handleRequest(
-      newUserProps.username,
-      // newUserProps.firstName,
-      // newUserProps.lastName,
-      newUserProps.password,
-      newUserProps.email,
-      token
-    );
+  const onButtonClick = (appId) => {
+    handleRequest(appId);
   };
 
-  async function handleRequest(
-    username,
-    // firstName,
-    // lastName,
-    password,
-    email,
-    token
-  ) {
+  async function handleRequest(appId) {
     setLoading(true);
-    const resp = await Request("post", "/addPerson", {
+    const resp = await Request("post", "/adminAssignAppToUser", {
       username: username,
-      // firstName: firstName,
-      // lastName: lastName,
-      password: password,
-      email: email,
-      token: token,
+      appid: appId,
     });
     console.log(resp);
     handleCloseModal();
     setLoading(false);
   }
 
-  const handleCloseModal = (event, reason) => {
+  const handleCloseModal = () => {
     setModal(false);
   };
 
@@ -194,7 +174,7 @@ export default function AssignAppModal({ modal, setModal, modalLoading }) {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={() => onButtonClick()}
+                onClick={() => onButtonClick(app.id)}
                 className={classes.submit}
               >
                 Assign
@@ -202,27 +182,6 @@ export default function AssignAppModal({ modal, setModal, modalLoading }) {
             </Card>
           );
         })}
-
-        <div style={{ paddingBottom: 20, textAlign: "center" }}>
-          {loading ? (
-            <CircularProgress color="secondary" />
-          ) : (
-            <div className={classes.buttons}>
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={() => onButtonClick()}
-                className={classes.submit}
-                sx={{ color: "white", maxWidth: 200 }}
-              >
-                Done
-              </Button>
-            </div>
-          )}
-        </div>
       </FormControl>
     </TableEntryModal>
   );

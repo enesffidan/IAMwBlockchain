@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import PersonAddAlt1Icon from "@material-ui/icons/PersonAdd";
 import IconTooltipButton from "../../../components/Buttons/IconTooltipButton";
-import NewUserModal from "../NewUserModal";
+import AssignAppModal from "../AssignAppModal";
 import Table from "../../../components/Table/Table";
+import Request from "../../../helpers/Request";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,25 +32,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserDetail() {
   const classes = useStyles();
+  const location = useLocation();
+  const username = location.pathname.substring(6);
   const columns = [
     {
-      title: "Application",
-      field: "app",
+      field: "id",
+      title: "ID",
     },
     {
-      field: "username",
-      title: "App Username",
+      title: "Application",
+      field: "appname",
     },
   ];
 
   const tableRef = React.useRef();
-  const [rows, setRows] = React.useState([
-    { app: "Facebook", username: "test", id: "1" },
-  ]);
+  const [rows, setRows] = React.useState([]);
   const [numOfEntries, setNumOfEntries] = React.useState(0);
 
   const [modal, setModal] = React.useState(false);
   const [modalLoading, setModalLoading] = React.useState(false);
+
+  const getUserApps = useCallback(async () => {
+    const resp = await Request("post", "/userAppsAdmin", {
+      username: username,
+    });
+    console.log(resp);
+    setRows(resp.data.apps);
+  }, []);
+
+  useEffect(() => {
+    getUserApps();
+  }, []);
 
   const handleOpenModal = () => {
     setModalLoading(true);
@@ -58,10 +72,11 @@ export default function UserDetail() {
 
   return (
     <React.Fragment>
-      <NewUserModal
+      <AssignAppModal
         modal={modal}
         setModal={setModal}
         modalLoading={modalLoading}
+        username={username}
       />
       <div className={classes.root}>
         <Typography className={classes.typo} variant="h5" gutterBottom>

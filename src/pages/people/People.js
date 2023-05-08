@@ -6,6 +6,7 @@ import NewUserModal from "./NewUserModal";
 import Table from "../../components/Table/Table";
 import Request from "../../helpers/Request";
 import { useEffect } from "react";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,29 +28,46 @@ const useStyles = makeStyles((theme) => ({
   button: {
     // paddingBottom: 10,
   },
+  list: {
+    height: 100,
+    overflow: 'auto'
+  }
 }));
 
 export default function People() {
   const classes = useStyles();
   const columns = [
     {
-      title: "Person",
-      field: "username",
+      title: "ID",
+      field: "id",
     },
     {
       title: "Username",
       field: "username",
     },
     {
-      title: "Status",
+      title: "Assigned Apps",
       field: "apps",
+      render: (rowData) => (
+        <List className={classes.list}>
+          {rowData.apps.map((app) => {
+            return (
+              <ListItem>
+                <ListItemText secondary={app} />
+              </ListItem>
+            );
+          })}
+        </List>
+      ),
+    },
+    {
+      title: "Role",
+      field: "role",
     },
   ];
 
   const tableRef = React.useRef();
-  const [rows, setRows] = React.useState([
-    { name: "Onur Cihangir", email: "asdasd", status: "active", id: "1" },
-  ]);
+  const [rows, setRows] = React.useState([{ apps: [] }]);
   const [numOfEntries, setNumOfEntries] = React.useState(0);
 
   const [modal, setModal] = React.useState(false);
@@ -57,7 +75,8 @@ export default function People() {
 
   const getUsers = useCallback(async () => {
     const users = await Request("get", "/fetchUsers");
-    setRows(users.data);
+    console.log(users);
+    setRows(users.data.users);
   }, []);
   useEffect(() => {
     getUsers();
@@ -88,7 +107,7 @@ export default function People() {
           numOfEntries={numOfEntries}
           setNumOfEntries={setNumOfEntries}
           tableName={"People"}
-          detailsWindow={(rowData) => window.open("/user/" + rowData.id)}
+          detailsWindow={(rowData) => window.open("/user/" + rowData.username)}
           headerComponents={
             <div className={classes.button}>
               <IconTooltipButton label={"Add Person"} onClick={handleOpenModal}>
