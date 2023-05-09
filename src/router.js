@@ -23,6 +23,7 @@ import AppsPage from "./pages/applications/AppsPage";
 import UserDetail from "./pages/people/userdetail/UserDetail";
 import AssignApps from "./pages/applications/AssignApps";
 import AppDetail from "./pages/applications/appdetail/AppDetail";
+import AdminNotifications from "./pages/notifications/AdminNotifications";
 
 const auth = [
   {
@@ -85,6 +86,10 @@ const publicRoutes = [
     path: "/app",
     component: AppDetail,
   },
+  {
+    path: "/admin-notifications",
+    component: AdminNotifications,
+  },
 ];
 
 function PrivateRoute({ children, ...rest }) {
@@ -131,6 +136,7 @@ export default function Routes() {
           label: "My Apps",
           Path: "/my-apps",
         },
+        authorization.adminNotifications && { label: "Notifications", Path: "/admin-notifications" },
         authorization.addApps && { label: "Add Apps", Path: "/add-apps" },
         authorization.people && { label: "People", Path: "/people" },
         authorization.apps && { label: "Applications", Path: "/apps" },

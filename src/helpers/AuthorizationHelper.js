@@ -10,7 +10,11 @@ const user = SessionHelper.getUser();
 
 authorizationLookup.dashboard = {
 "ADMIN":                       {view: true, create: true, delete: true, edit: true},
-"USER":                                {view: false, create: false, delete: false, edit: false},
+"USER":                         {view: false, create: false, delete: false, edit: false},
+}
+authorizationLookup.adminNotifications = {
+  "ADMIN":                       {view: true, create: true, delete: true, edit: true},
+  "USER":                        {view: false, create: false, delete: false, edit: false},
 }
 authorizationLookup.myApps = {
 "ADMIN":                       {view: false, create: false, delete: false, edit: false},
