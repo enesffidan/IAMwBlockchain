@@ -113,7 +113,7 @@ def adminNotification():
     data = request.get_json() #admin_username, username ve appid gelicek frontendden
     admin_username = data["username"]
 
-    notifications = DB_SERVICE.DB_NOTIFCIATIONS.get_notifications(admin_username)
+    notifications = DB_SERVICE.DB_NOTIFCIATIONS.get_user_notifications(admin_username)
 
     return json.dumps(notifications)
 
@@ -122,14 +122,20 @@ def adminNotification():
 @app.route("/notificationInteract", methods=['POST'])
 def notificationInteract():
     data = request.get_json() 
+
+    confirm = data["confirm"] # rejected
+    if confirm == False:
+        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["admin_username"], data["notification"])
+        return json.dumps(True)
     
     status = data["status"]
     if status == True: #user decide credentials
-        DB_SERVICE.DB_USER.add_app_to_user(data["username"], data["appname"])
+        DB_SERVICE.DB_USER.add_app_to_user(data["targetUsername"], data["appname"])
+        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
         return json.dumps(True)
     
     elif status == False:
-        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["admin_username"], data["notification"])
+        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
 
 
 

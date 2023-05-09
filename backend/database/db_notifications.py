@@ -53,7 +53,20 @@ class DB_NOTIFICATION():
 
         conn.close()
 
-        return rows
+        # Convert rows to a JSON list
+        notifications_list = []
+        for row in rows:
+            notification_data = {
+                'username': row[0],
+                'targetUser': row[1],
+                'app': row[2],
+                'date': row[3],
+                'notification': row[4],
+                'notificationType': row[5]
+            }
+            notifications_list.append(notification_data)
+
+        return notifications_list
 
 
     

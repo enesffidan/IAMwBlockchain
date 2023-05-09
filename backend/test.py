@@ -18,7 +18,7 @@ auth_service = Auth()
 #db_service.DB_3RD.create_table()
 
 #db_service.DB_NOTIFCIATIONS.create_notifications_table()
-db_service.DB_NOTIFCIATIONS.add_notification("admin", "Facebook", "onur1 request to Facebook!", "1", "onur1")
+db_service.DB_NOTIFCIATIONS.add_notification("admin", "Linkedin", "onur1 request to Linkedin!", "1", "onur1")
 
 
 
