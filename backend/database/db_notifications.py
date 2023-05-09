@@ -38,18 +38,26 @@ class DB_NOTIFICATION():
         conn.close()
 
 
-
-    def get_notifications(self, username):
+    def get_notifications(username):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file
         cursor = conn.cursor()
 
-        # Retrieve notifications for the specified username
-        cursor.execute('SELECT notification FROM notifications WHERE username = ?', (username,))
+        # Retrieve notifications and dates for the specified username
+        cursor.execute('SELECT notification, date FROM notifications WHERE username = ?', (username,))
         notifications = cursor.fetchall()
 
         conn.close()
 
-        return [notification[0] for notification in notifications]
+        # Convert notifications to a JSON list
+        notifications_list = []
+        for notification in notifications:
+            notification_data = {
+                'notification': notification[0],
+                'date': notification[1]
+            }
+            notifications_list.append(notification_data)
+
+        return notifications_list
     
     def delete_notifications_table(self):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file

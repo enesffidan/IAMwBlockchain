@@ -111,11 +111,10 @@ def github():
 @app.route("/adminNotification", methods=['POST'])
 def adminNotification():
     data = request.get_json() #admin_username, username ve appid gelicek frontendden
-    admin_username = data["admin_username"]
+    admin_username = data["username"]
 
-    notifications = DB_SERVICE.DB_NOTIFCIATIONS.get_notifications()
+    notifications = DB_SERVICE.DB_NOTIFCIATIONS.get_notifications(admin_username)
 
-    print(notifications)
     return notifications
 
 
