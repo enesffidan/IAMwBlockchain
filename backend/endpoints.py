@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-
+import json
 
 from auth import Auth
 from user.display import *
@@ -115,17 +115,21 @@ def adminNotification():
 
     notifications = DB_SERVICE.DB_NOTIFCIATIONS.get_notifications(admin_username)
 
-    return notifications
+    return json.dumps(notifications)
 
 
 
-
-
-
-
-
-
-
+@app.route("/notificationInteract", methods=['POST'])
+def notificationInteract():
+    data = request.get_json() 
+    
+    status = data["status"]
+    if status == True: #user decide credentials
+        DB_SERVICE.DB_USER.add_app_to_user(data["username"], data["appname"])
+        return json.dumps(True)
+    
+    elif status == False:
+        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["admin_username"], data["notification"])
 
 
 

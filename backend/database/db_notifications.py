@@ -16,15 +16,19 @@ class DB_NOTIFICATION():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS notifications (
                 username TEXT,
+                targetUser TEXT,
+                app TEXT,
                 date TEXT,
-                notification TEXT
+                notification TEXT,
+                notificationType BOOLEAN
             )
         ''')
 
         conn.commit()
         conn.close()
 
-    def add_notification(self, username, notification):
+
+    def add_notification(self, username, app, notification, notification_type, targetUser):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file
         cursor = conn.cursor()
 
@@ -32,32 +36,26 @@ class DB_NOTIFICATION():
         date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         # Insert the new notification into the table
-        cursor.execute('INSERT INTO notifications (username, date, notification) VALUES (?, ?, ?)', (username, date, notification))
+        cursor.execute('INSERT INTO notifications (username, targetUser, app, date, notification, notificationType) VALUES (?, ?, ?, ?, ?, ?)',
+                    (username,targetUser, app, date, notification, notification_type))
 
         conn.commit()
         conn.close()
 
 
-    def get_notifications(username):
+    def get_user_notifications(self, username):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file
         cursor = conn.cursor()
 
-        # Retrieve notifications and dates for the specified username
-        cursor.execute('SELECT notification, date FROM notifications WHERE username = ?', (username,))
-        notifications = cursor.fetchall()
+        # Retrieve all rows for the specified username
+        cursor.execute('SELECT * FROM notifications WHERE username = ?', (username,))
+        rows = cursor.fetchall()
 
         conn.close()
 
-        # Convert notifications to a JSON list
-        notifications_list = []
-        for notification in notifications:
-            notification_data = {
-                'notification': notification[0],
-                'date': notification[1]
-            }
-            notifications_list.append(notification_data)
+        return rows
 
-        return notifications_list
+
     
     def delete_notifications_table(self):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file
