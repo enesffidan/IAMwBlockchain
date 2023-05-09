@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import PersonAddAlt1Icon from "@material-ui/icons/PersonAdd";
-import CheckIcon from "@material-ui/icons/Check";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
 import Table from "../../components/Table/Table";
-import Button from "@material-ui/core/Button";
 import SessionHelper from "../../helpers/SessionHelper";
 import Request from "../../helpers/Request";
+import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,34 +37,66 @@ const useStyles = makeStyles((theme) => ({
 export default function AdminNotifications() {
   const classes = useStyles();
   const user = SessionHelper.getUser();
+  const history = useHistory();
   const getNotifications = useCallback(async () => {
     const notificationsResponse = await Request("post", "/adminNotification", {
       username: user.username,
     });
-    console.log(notificationsResponse)
-    setRows(notificationsResponse);
+    console.log(notificationsResponse);
+    setRows(notificationsResponse.data);
   }, []);
 
   useEffect(() => {
     getNotifications();
   }, []);
 
+  const confirmNotification = async (rowData) => {
+    console.log(rowData)
+    const resp = await Request("post", "/notificationInteract", {
+      confirm: true,
+      targetUsername: rowData.targetUser,
+      status: rowData.notificationType,
+      appname: rowData.app,
+      adminUsername: rowData.username,
+      notification: rowData.notification,
+    });
+    console.log(resp);
+  };
+
+  const rejectNotification = async (rowData) => {
+    console.log(rowData)
+    const resp = await Request("post", "/notificationInteract", {
+      confirm: false,
+      targetUsername: rowData.targetUser,
+      status: rowData.notificationType,
+      appname: rowData.app,
+      adminUsername: rowData.username,
+      notification: rowData.notification,
+    });
+    console.log(resp);
+  };
+
   const columns = [
     {
       title: "Notifications",
-      field: "appname",
+      field: "notification",
     },
     {
       title: "Date",
-      field: "id",
+      field: "date",
     },
     {
       title: "Confirmation",
-      field: "id",
-      render: () => (
-        <div onClick={() => getNotifications()}>
-          <CheckIcon />
-        </div>
+      field: "date",
+      render: (rowData) => (
+        <>
+          <Button onClick={() => confirmNotification(rowData)}>
+            <CheckCircleIcon />
+          </Button>
+          <Button onClick={() => rejectNotification(rowData)}>
+            <CancelIcon />
+          </Button>
+        </>
       ),
     },
   ];
@@ -75,16 +107,7 @@ export default function AdminNotifications() {
 
   return (
     <React.Fragment>
-      {/* <NewUserModal
-        modal={modal}
-        setModal={setModal}
-        modalLoading={modalLoading}
-      /> */}
       <div className={classes.root}>
-        {/* <Typography className={classes.typo} variant="h5" gutterBottom>
-          People
-        </Typography> */}
-
         <Table
           noRowActions
           data={rows}

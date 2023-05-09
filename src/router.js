@@ -24,6 +24,7 @@ import UserDetail from "./pages/people/userdetail/UserDetail";
 import AssignApps from "./pages/applications/AssignApps";
 import AppDetail from "./pages/applications/appdetail/AppDetail";
 import AdminNotifications from "./pages/notifications/AdminNotifications";
+import AssignAppsNext from "./pages/applications/AssignAppsNext";
 
 const auth = [
   {
@@ -81,6 +82,10 @@ const publicRoutes = [
   {
     path: "/assign-apps",
     component: AssignApps,
+  },
+  {
+    path: "/assign-apps-next",
+    component: AssignAppsNext,
   },
   {
     path: "/app",
