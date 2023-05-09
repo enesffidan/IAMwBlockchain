@@ -17,6 +17,10 @@ auth_service = Auth()
 
 #db_service.DB_3RD.create_table()
 
+#db_service.DB_NOTIFCIATIONS.create_notifications_table()
+#db_service.DB_NOTIFCIATIONS.add_notification("admin", "First notification test!")
+
+
 #db_service.DB_USER.delete_user("enes")
 
 #USER TABLOSU OLUSTURULDU
@@ -26,7 +30,7 @@ auth_service = Auth()
 #db_service.DB_USER.add_user(username="admin", password=auth_service.hash_password("admin123"), apps=["Github", "Linkedin"], role="ADMIN")
 #db_service.DB_USER.add_user(username="enes", password=auth_service.hash_password("123"), apps=["Github", "Linkedin"], role="USER")
 # db_service.DB_USER.add_user(username="onur1", password=auth_service.hash_password("123"), apps=[], role="USER")
-db_service.DB_USER.delete_user('aliveli')
+#db_service.DB_USER.delete_user('aliveli')
 
 #APP CATALOG TABLE OLUSTURULUP 3 ENTRY EKLENDI
 #db_service.DB_APP.create_appCatalog_table()
