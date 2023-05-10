@@ -9,7 +9,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      if (user.roles.includes("ROLE_SİSTEM_ADMİNİ")) {
+      if (user.roles.includes("ADMIN")) {
         history.push("dashboard");
       } else {
         history.push("my-apps");
