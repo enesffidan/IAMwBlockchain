@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { Avatar, Divider, TextField } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { TextArea } from "../../components/Fields/TextField";
 import Request from "../../helpers/Request";
 import fbLogo from "../../assets/Facebook_Logo_(2019).png";
@@ -91,12 +91,23 @@ const useStyles = makeStyles((theme) => ({
 export default function AssignAppsNext() {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  const { appname, targetUsername } = location.state;
+  console.log(appname, targetUsername);
 
   const [apps, setApps] = React.useState([]);
   const [selectedApps, setSelectedApps] = React.useState([]);
 
   const [users, setUsers] = React.useState([]);
   const [selectedUsers, setSelectedUsers] = React.useState([]);
+
+  const [accountProps, setAccountProps] = React.useState({});
+
+  const onButtonClick = async () => {
+    const props = { ...accountProps, username: targetUsername, appname };
+    const resp = await Request("post", "/adminAddCredentials", props);
+    console.log(resp);
+  };
 
   const getUsers = useCallback(async () => {
     const users = await Request("get", "/fetchUsers");
@@ -131,7 +142,7 @@ export default function AssignAppsNext() {
         <Typography className={classes.typo}>Enter User Attributes</Typography>
         <div className={classes.appnameRow}>
           <Avatar className={classes.avatar} alt="app" src={fbLogo} />
-          <Typography className={classes.appname}>Facebook</Typography>
+          <Typography className={classes.appname}>{appname}</Typography>
         </div>
         <Divider />
         <Grid
@@ -157,17 +168,19 @@ export default function AssignAppsNext() {
           justifyContent="center"
         >
           <Grid item xs={12} sm={6} md={6}>
-            <Typography className={classes.appname}>Person</Typography>
+            <Typography className={classes.appname}>
+              {targetUsername}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <TextArea //User NAME
               label={"User Name"}
               // value={""}
               onChangeFunc={(value) => {
-                // setAccountProps({
-                //   ...accountProps,
-                //   userName: value.target.value,
-                // });
+                setAccountProps({
+                  ...accountProps,
+                  appUsername: value.target.value,
+                });
               }}
               style={classes.textField}
             />
@@ -179,10 +192,10 @@ export default function AssignAppsNext() {
               label={"Password"}
               type="password"
               onChange={(value) => {
-                // setAccountProps({
-                //   ...accountProps,
-                //   password: value.target.value,
-                // });
+                setAccountProps({
+                  ...accountProps,
+                  appPassword: value.target.value,
+                });
               }}
               className={classes.textField}
             />
@@ -207,7 +220,7 @@ export default function AssignAppsNext() {
           fullWidth
           variant="contained"
           color="primary"
-          // onClick={() => onButtonClick()}
+          onClick={() => onButtonClick()}
           className={classes.saveButton}
         >
           Confirm

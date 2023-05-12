@@ -51,20 +51,34 @@ export default function AdminNotifications() {
   }, []);
 
   const confirmNotification = async (rowData) => {
-    console.log(rowData)
-    const resp = await Request("post", "/notificationInteract", {
-      confirm: true,
-      targetUsername: rowData.targetUser,
-      status: rowData.notificationType,
-      appname: rowData.app,
-      adminUsername: rowData.username,
-      notification: rowData.notification,
-    });
-    console.log(resp);
+    console.log(rowData);
+    if (rowData.notificationType === 1) {
+      const resp = await Request("post", "/notificationInteract", {
+        confirm: true,
+        targetUsername: rowData.targetUser,
+        status: rowData.notificationType,
+        appname: rowData.app,
+        adminUsername: rowData.username,
+        notification: rowData.notification,
+      });
+      history.push("/assign-apps-next", {
+        appname: rowData.app,
+        targetUsername: rowData.targetUser,
+      });
+    } else {
+      const resp = await Request("post", "/notificationInteract", {
+        confirm: true,
+        targetUsername: rowData.targetUser,
+        status: rowData.notificationType,
+        appname: rowData.app,
+        adminUsername: rowData.username,
+        notification: rowData.notification,
+      });
+    }
   };
 
   const rejectNotification = async (rowData) => {
-    console.log(rowData)
+    console.log(rowData);
     const resp = await Request("post", "/notificationInteract", {
       confirm: false,
       targetUsername: rowData.targetUser,

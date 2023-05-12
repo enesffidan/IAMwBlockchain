@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Divider } from "@material-ui/core";
+import Request from "../../helpers/Request";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -46,6 +47,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
 
+  const [apps, setApps] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
+
+  const getAllApps = useCallback(async () => {
+    const resp = await Request("get", "/requestAppDisplay");
+    setApps(resp.data);
+  }, []);
+
+  const getUsers = useCallback(async () => {
+    const users = await Request("get", "/fetchUsers");
+    setUsers(users.data.users);
+  }, []);
+
+  useEffect(() => {
+    getAllApps();
+    getUsers();
+  }, [getAllApps, getUsers]);
+
   return (
     <div className={classes.root}>
       <Typography className={classes.typo} variant="h5" gutterBottom>
@@ -75,12 +94,12 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Typography className={classes.typo} variant="h6" gutterBottom>
-            1
+            {users.length}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Typography className={classes.typo} variant="h6" gutterBottom>
-            3
+            {apps.length}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={4} className={classes.gridClass}>
