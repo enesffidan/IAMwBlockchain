@@ -27,7 +27,7 @@ class DB_NOTIFICATION():
         conn.commit()
         conn.close()
 
-
+    ## 0: user decide  1: admin decide
     def add_notification(self, username, app, notification, notification_type, targetUser):
         conn = sqlite3.connect('IAM.db')  # Replace 'IAM.db' with the path to your SQLite database file
         cursor = conn.cursor()

@@ -78,8 +78,27 @@ def userAddApp():
         DB_SERVICE.DB_USER.add_app_to_user(username, app_data["appname"])
 
         DB_SERVICE.DB_3RD.add_credentials(username, data["userName"], data["password"], app_data["appname"])
+
+    elif data["haveAnAccount"] == False:
+        app_data = DB_SERVICE.DB_APP.search_app_by_id(data["appId"])
+        DB_SERVICE.DB_NOTIFCIATIONS.add_notification("admin", app_data["appname"], "{} request to {}!".format(username,app_data["appname"]), "1", username)
+
         
     return {"status":True}
+
+
+@app.route("/adminAddCredentials", methods=['POST'])
+def adminAddCredentials():
+    data = request.get_json()
+    username = data["username"]
+    app_username = data["appUsername"]
+    app_password = data["appPassword"]
+    app_name = data["appname"]
+
+    DB_SERVICE.DB_USER.add_app_to_user(username, app_name)
+    DB_SERVICE.DB_3RD.add_credentials(username, app_username, app_password, app_name)
+
+    return {"status": True}
 
 
 
@@ -125,16 +144,16 @@ def notificationInteract():
 
     confirm = data["confirm"] # rejected
     if confirm == False:
-        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["admin_username"], data["notification"])
+        DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
         return json.dumps(True)
     
     status = data["status"]
-    if status == True: #user decide credentials
+    if status == 0: #user decide credentials
         DB_SERVICE.DB_USER.add_app_to_user(data["targetUsername"], data["appname"])
         DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
         return json.dumps(True)
     
-    elif status == False:
+    elif status == 1:
         DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
 
 
