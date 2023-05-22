@@ -11,7 +11,7 @@ from database.ethereum import EthereumSmartContract
 
 db_service = DBService()
 
-db_service.DB_CONTRACT.add_entry_to_third_party_app_contract('onur', "0x01f62860339f19e1a12FbAC6d7dBba475a4bD0A0", 'Github')
+db_service.DB_KEY.create_keys_table()
 
 exit()
 

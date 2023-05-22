@@ -108,8 +108,15 @@ def adminAddCredentials():
     app_password = data["appPassword"]
     app_name = data["appname"]
 
+    tx_hash, contract = smart_contract.create_contract(app_username, app_password)
+
     DB_SERVICE.DB_USER.add_app_to_user(username, app_name)
-    DB_SERVICE.DB_3RD.add_credentials(username, app_username, app_password, app_name)
+    # DB_SERVICE.DB_3RD.add_credentials(username, app_username, app_password, app_name)
+    contract, key = AUTH_SERVICE.aes_encrypt(contract)
+    
+    DB_SERVICE.DB_KEY.add_key_to_database(username, app_name, key)
+
+    DB_SERVICE.DB_CONTRACT.add_entry_to_third_party_app_contract(username, contract, app_name)
 
     return {"status": True}
 
@@ -133,6 +140,10 @@ def github():
         contract_address = row[2]
 
     print(contract_address)
+
+    key = DB_SERVICE.DB_KEY.retrieve_key_by_appname_and_username('Github', username)
+
+    contract_address = AUTH_SERVICE.aes_decrypt(contract_address, key)
 
     username, password = smart_contract.read_variables(contract_address)
     print("Username:", username)
@@ -177,6 +188,7 @@ def notificationInteract():
     
     elif status == 1:
         DB_SERVICE.DB_NOTIFCIATIONS.delete_notification(data["adminUsername"], data["notification"])
+        return json.dumps(True)
 
 
 

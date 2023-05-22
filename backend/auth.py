@@ -1,6 +1,10 @@
 import jwt
 import hashlib
 import bcrypt
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+from Crypto.Util.Padding import unpad
+from Crypto.Random import get_random_bytes
 
 class Auth():
 
@@ -34,3 +38,20 @@ class Auth():
             return True
         else:
             return False
+
+    def generate_aes_key(self):
+        return get_random_bytes(16)  # 16 bytes = 128 bits (AES-128)
+
+    def aes_encrypt(self, plaintext):
+        plaintext = plaintext.encode('utf-8')
+        key = self.generate_aes_key()
+        cipher = AES.new(key, AES.MODE_CBC)
+        iv = cipher.iv
+        ciphertext = cipher.encrypt(pad(plaintext, AES.block_size))
+        return iv + ciphertext, key
+
+    def aes_decrypt(self, ciphertext, key):
+        iv = ciphertext[:AES.block_size]
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        decrypted_data = unpad(cipher.decrypt(ciphertext[AES.block_size:]), AES.block_size)
+        return decrypted_data.decode('utf-8')
