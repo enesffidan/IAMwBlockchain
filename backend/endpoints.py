@@ -11,9 +11,22 @@ from ThirdApps.github import Github
 
 from flask_cors import CORS
 
+from database.ethereum import EthereumSmartContract
+
 
 AUTH_SERVICE = Auth()
 DB_SERVICE = DBService()
+
+contract_address = "0x793912D3dFD8946B638d0e5929F5D4f8C19247BA"  # Replace with your actual contract address
+with open("./truffle/build/contracts/UserFactory.json") as f:
+    info_json = json.load(f)
+abi = info_json["abi"]
+
+# print(abi)
+  # Replace with the contract's ABI
+private_key = "0x90167bb5c6588fd1275a8e3bec7198dae30ffb13e6bbe7caef7af0adac8634f8"  # Replace with your private key
+
+smart_contract = EthereumSmartContract(contract_address, abi, private_key)
 
 
 
@@ -113,14 +126,23 @@ def github():
     verify_token_data = AUTH_SERVICE.verify_token(jwt_token)
     username = verify_token_data["username"]
 
-    app_list = DB_SERVICE.DB_3RD.search_apps_by_username_and_appname(username, "Github")
+    # app_list = DB_SERVICE.DB_3RD.search_apps_by_username_and_appname(username, "Github")
+    row = DB_SERVICE.DB_CONTRACT.get_contract_by_username(username)
 
-    if app_list != None:
-        github_data = app_list[0]
+    if row[3] == 'Github':
+        contract_address = row[2]
 
-    
+    print(contract_address)
 
-    github.login("https://www.github.com/login/", "login_field", github_data["appusername"], "password", github_data["password"], "commit")
+    username, password = smart_contract.read_variables(contract_address)
+    print("Username:", username)
+    print("Password:", password)
+
+    # if app_list != None:
+    #     github_data = app_list[0]
+ 
+
+    github.login("https://www.github.com/login/", "login_field", username, "password", password, "commit")
 
 
     return {"status": True}
