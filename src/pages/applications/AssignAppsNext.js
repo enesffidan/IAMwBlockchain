@@ -176,6 +176,7 @@ export default function AssignAppsNext() {
             <TextArea //User NAME
               label={"User Name"}
               // value={""}
+              shrink={accountProps.appUsername}
               onChangeFunc={(value) => {
                 setAccountProps({
                   ...accountProps,

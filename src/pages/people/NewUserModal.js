@@ -5,6 +5,7 @@ import {
   CircularProgress,
   FormControl,
   Typography,
+  TextField,
 } from "@material-ui/core";
 import Request from "../../helpers/Request";
 import TableEntryModal from "../../components/Modal/TableEntryModal";
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function NewUserModal({ modal, setModal, modalLoading }) {
-  const classes  = useStyles();
+  const classes = useStyles();
   const user = SessionHelper.getUser();
   const token = user.token;
   const [loading, setLoading] = React.useState(false);
@@ -156,14 +157,24 @@ export default function NewUserModal({ modal, setModal, modalLoading }) {
           }}
           style={classes.textField}
         />
-        <TextArea //PASSWORD
+        <TextField
+          variant="outlined"
+          fullWidth
+          label={"Password"}
+          type="password"
+          onChange={(value) => {
+            setNewUserProps({ ...newUserProps, password: value.target.value });
+          }}
+          className={classes.textField}
+        />
+        {/* <TextArea //PASSWORD
           label={"Password"}
           value={newUserProps.password}
           onChangeFunc={(value) => {
             setNewUserProps({ ...newUserProps, password: value.target.value });
           }}
           style={classes.textField}
-        />
+        /> */}
         <div style={{ paddingBottom: 20, textAlign: "center" }}>
           {loading ? (
             <CircularProgress color="secondary" />
