@@ -10,6 +10,7 @@ import Request from "../../helpers/Request";
 import { CardActionArea } from "@material-ui/core";
 import fblogo from "../../assets/Facebook_Logo_(2019).png";
 import linkedinLogo from "../../assets/LinkedIn_logo.png";
+import outlookLogo from "../../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -45,7 +46,7 @@ export default function MyApps() {
   }, []);
 
   async function handleOnClick() {
-    const resp = await Request("get", "/appInstance", null);
+    const resp = await Request("get", "/Outlook", null);
     console.log(resp);
   }
 
@@ -69,6 +70,8 @@ export default function MyApps() {
                       ? logo
                       : app.appname == "Facebook"
                       ? fblogo
+                      : app.appname == "Outlook"
+                      ? outlookLogo
                       : linkedinLogo
                   }
                   alt="github"

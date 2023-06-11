@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/GitHub-Mark.png";
 import fbLogo from "../../assets/Facebook_Logo_(2019).png";
 import linkedinLogo from "../../assets/LinkedIn_logo.png";
+import outlookLogo from "../../assets/logo.png";
 import AddAppModal from "./AddAppModal";
 import Request from "../../helpers/Request";
 
@@ -102,10 +103,12 @@ export default function AddApps() {
               component="img"
               height="150"
               image={
-                app.appname === "Github"
+                app.appname == "Github"
                   ? logo
-                  : app.appname === "Facebook"
+                  : app.appname == "Facebook"
                   ? fbLogo
+                  : app.appname == "Outlook"
+                  ? outlookLogo
                   : linkedinLogo
               }
               alt="github"

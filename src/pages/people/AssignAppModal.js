@@ -8,6 +8,7 @@ import TableEntryModal from "../../components/Modal/TableEntryModal";
 import fblogo from "../../assets/Facebook_Logo_(2019).png";
 import linkedinLogo from "../../assets/LinkedIn_logo.png";
 import logo from "../../assets/GitHub-Mark.png";
+import outlookLogo from "../../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -157,6 +158,8 @@ export default function AssignAppModal({
                     ? logo
                     : app.appname == "Facebook"
                     ? fblogo
+                    : app.appname == "Outlook"
+                    ? outlookLogo
                     : linkedinLogo
                 }
                 alt="github"
